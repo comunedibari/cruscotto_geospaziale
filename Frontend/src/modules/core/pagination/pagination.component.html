@@ -1,0 +1,23 @@
+<div class="row no-gutters">
+  <!-- Record per page -->
+    <div class="col-2">
+      <select class="pagination core-pagination" style="border-color:#e5e5e5"
+        [(ngModel)]="rpp" (change)="loadMaster()" >
+        <option *ngFor="let val of rppArray" >{{val}}</option>
+      </select>
+    </div>
+
+    <!-- Pagination -->
+    <div class="col-8">
+      <ngb-pagination class="d-flex justify-content-center core-pagination" size="sm"
+        [collectionSize]="count" [page]="curPage" [maxSize]="1"
+        [pageSize]="rpp" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+        (pageChange)="onPageChange($event)">
+      </ngb-pagination>
+    </div>
+
+    <!-- Pagination info -->
+    <div class="col-2 core-pagination-info">
+      {{firstIndex}}-{{lastIndex}} {{'WORD.OF' | translate}} {{count}}
+    </div>
+</div>

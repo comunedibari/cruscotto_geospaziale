@@ -1,0 +1,158 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- Tabset -->
+<ngb-tabset justify="justified" type="pills" [destroyOnHide]="false">
+
+  <!-- Tab symbol -->
+  <ngb-tab id="0" title="{{'WORD.SYMBOL'|translate}}">
+    <ng-template ngbTabContent>
+
+    <!-- Type form -->
+    <core-form [config]="typeForm" [entity]="style"
+      (fieldChanged)="onFormChange($event)"></core-form>
+
+    <!-- Simple style -->
+    <div *ngIf="styleForm && styleType == 1">
+      <core-form [config]="styleForm" [entity]="styleFormObj"
+        (fieldChanged)="onFormChange($event)"></core-form>
+    </div>
+
+    <!-- Categorized style -->
+    <div *ngIf="styleForm && styleType == 2" class="row no-gutters">
+
+      <!-- Form -->
+      <div class="col-4">
+        <core-form [config]="styleForm" [entity]="styleFormObj"
+          (fieldChanged)="onFormChange($event)"></core-form>
+      </div>
+
+      <!-- Table -->
+      <div class="col-8 table-box">
+        <p-table tableStyleClass="font-project" [value]="styleFormObj.rules"
+          [scrollable]="true" scrollHeight="180px">
+
+          <!-- Header -->
+          <ng-template pTemplate="header">
+            <tr class="text-center">
+              <th>{{'WORD.VALUE'|translate}}</th>
+              <th>{{'WORD.LABEL'|translate}}</th>
+              <th>{{'WORD.STYLE'|translate}}</th>
+            </tr>
+          </ng-template>
+
+          <!-- Body -->
+          <ng-template pTemplate="body" let-row>
+            <tr>
+              <td>{{row.val}}</td>
+              <td>
+                <input class="td-input" type="text" [(ngModel)]="row.lbl">
+              </td>
+              <td [hidden]="style.symbolType != 'image'">
+                <input
+                  id="{{row.val}}"
+                  type="file"
+                  style="display:none"
+                  (change)="onFileSel($event.target.files,row,null)">
+                <label for="{{row.val}}" class="file-lbl">
+                  <img class="pointer" *ngIf="row.src"
+                    src="{{row.src}}" height="20">
+                  <span class="pointer" *ngIf="!row.src">
+                    {{'WORD.ADD'|translate}}
+                  </span>
+                </label>
+              </td>
+              <td [hidden]="style.symbolType == 'image'">
+                <input
+                  class="td-input"
+                  [value]="row.color || ''"
+                  [(colorPicker)]="row.color"
+                  [style.background]="row.color"
+                  [style.color]="tableGetInvertColor(row.color)"
+                  [cpPosition]="'left'"
+                  [cpDisableInput]="true"
+                  [cpOutputFormat]="'hex'"
+                  [cpAlphaChannel]="'always'">
+              </td>
+            </tr>
+          </ng-template>
+
+          <!-- No data -->
+          <ng-template pTemplate="emptymessage">
+            <tr><td colspan="3">{{'MESSAGE.NO_DATA'|translate}}</td></tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+
+    </div>
+
+    <!-- Ruled style -->
+    <div *ngIf="styleForm && styleType == 3" class="rule-list">
+      <div *ngFor="let r of style.rules; let idx = index">
+
+        <!-- Header -->
+        <div class="row no-gutters rule-head">
+          <div class="col-9">
+            <input class="rule-name" type="text" [(ngModel)]="r.name">
+
+            <div class="btn-group btn-group-toggle" ngbRadioGroup [(ngModel)]="r.op">
+              <label ngbButtonLabel class="btn-sm btn-outline-secondary">
+                <input ngbButton type="radio" [value]="'AND'"> AND
+              </label>
+              <label ngbButtonLabel class="btn-sm btn-outline-secondary">
+                <input ngbButton type="radio" [value]="'OR'"> OR
+              </label>
+            </div>
+          </div>
+
+          <div class="col-3 text-right">
+            <img class="rule-hbtn" src="assets/common/upd.png"
+              (click)="updRule(r)">
+            <img class="rule-hbtn" src="assets/common/trash.png"
+              (click)="delRule(r,idx)">
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="rule-cont" *ngIf="selRule == r">
+          <core-form [config]="styleForm" [entity]="r.symbol"
+            (fieldChanged)="onRuledFormChange($event)"></core-form>
+
+          <core-table [config]="condTable"
+            (tableButton)="onCondTableBtn($event)"></core-table>
+        </div>
+
+      </div>
+    </div>
+
+    </ng-template>
+  </ngb-tab>
+
+  <!-- Tab label -->
+  <ngb-tab id="1" title="{{'WORD.LABEL'|translate}}">
+    <ng-template ngbTabContent>
+
+    <!-- Label management -->
+    <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup
+      (change)="style.manageLabel()" [(ngModel)]="style.hasLabel">
+
+      <label ngbButtonLabel class="btn-sm btn-outline-primary">
+        <input ngbButton type="radio" [value]="true"> Si
+      </label>
+      <label ngbButtonLabel class="btn-sm btn-outline-primary">
+        <input ngbButton type="radio" [value]="false"> No
+      </label>
+
+    </div>
+
+    <!-- Label form -->
+    <core-form [config]="labelForm" [entity]="style.label"
+      [hidden]="!style.hasLabel"></core-form>
+
+    </ng-template>
+  </ngb-tab>
+
+</ngb-tabset>

@@ -1,0 +1,29 @@
+<!-- Modal header -->
+<div class="modal-header">
+  <div class="modal-title">
+    Informazioni utente
+  </div>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)">
+  </core-alert>
+
+  <!-- Form -->
+  <core-form [config]="formCfg" [entity]="data">
+  </core-form>
+
+  <!-- Toolbar -->
+  <div class="text-right">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="save()">
+      Salva
+    </button>
+    <button type="button" class="btn btn-sm btn-secondary ml-1" (click)="close()">
+      Chiudi
+    </button>
+  </div>
+
+</div>

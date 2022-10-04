@@ -1,0 +1,92 @@
+<div>
+
+  <!-- Header -->
+  <div class="login-header">
+    <div class="login-header-content">
+
+      <img src="assets/login/logo.png">
+
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="login-title text-center">{{title}}</div>
+
+  <!-- Login form -->
+  <form class="login-form">
+    <div class="form-group">
+      <input class="form-control" type="text" placeholder="username"
+        name="username" [(ngModel)]="username" required autofocus>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" type="password" placeholder="password"
+        name="password" [(ngModel)]="password" required>
+    </div>
+
+    <button class="login-button" (click)="doLogin()">
+      Login
+    </button>
+  </form>
+
+  <!-- Error message -->
+  <p class="text-danger text-center" *ngIf="errorMsg">
+    {{errorMsg}}
+  </p>
+
+  <!-- Recovery password -->
+  <p class="text-primary text-center" (click)="openRPModal(rpModalContent)">
+    <span style="cursor:pointer">
+      Recupera password
+    </span>
+  </p>
+
+  <!-- Footer -->
+  <div class="login-footer">
+    <div class="login-footer-content text-center">
+
+      <img src="assets/login/footer.png">
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Recovery password modal content -->
+<ng-template #rpModalContent let-modal>
+
+  <div class="modal-header">
+    <div class="modal-title">Recupera password</div>
+
+    <button type="button" class="close" (click)="modal.close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="spinner-container" *ngIf="loading">
+      <div class="login-spinner"></div>
+    </div>
+
+    <form>
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="username"
+          name="username" [(ngModel)]="recoveryPwd.username">
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="email" placeholder="email"
+          name="email" [(ngModel)]="recoveryPwd.email">
+      </div>
+    </form>
+
+    <p class="text-info" *ngIf="recoveryPwd.message">
+      {{recoveryPwd.message}}
+    </p>
+
+    <div class="text-right">
+      <button (click)="doRecoveryPwd()">Recupera</button>
+    </div>
+  </div>
+
+</ng-template>

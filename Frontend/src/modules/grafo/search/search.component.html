@@ -1,0 +1,100 @@
+<div>
+
+  <!-- Search toolbar -->
+  <div class="row no-gutters">
+
+    <!-- Quick search (via, civico) -->
+    <div class="col">
+      <ng-select
+        [items]="qsOpt"
+        (change)="qsChange($event)"
+        [loading]="qsLoading"
+        [typeahead]="loadQsOpt"
+        placeholder="Cerca via, civico"
+        notFoundText="Nessun risultato"
+        [hideSelected]="true"
+        typeToSearchText="Scrivi per cercare">
+
+        <ng-template ng-label-tmp let-item="item">
+          <div *ngIf="item.denominazione">{{item.denominazione}}</div>
+          <div *ngIf="item.numero">{{civicoFormattedLabel(item)}}</div>
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item" let-index="index">
+          <div *ngIf="item.denominazione">
+            <div>{{item.denominazione}} {{ceasedLabel(item)}}</div>
+            <div class="mun-div">{{viaLocMunDescr(item)}}</div>
+          </div>
+          <div *ngIf="item.numero">
+            <div>{{civicoFormattedLabel(item)}} {{ceasedLabel(item)}}</div>
+            <div class="mun-div">
+              {{item.localita}} - {{item.municipio}}
+            </div>
+          </div>
+        </ng-template>
+
+      </ng-select>
+    </div>
+
+    <!-- Advanced search button -->
+    <div class="col col-adv-search text-right">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-light" ngbDropdownToggle>
+          <img src="assets/sidebar/search.png">
+        </button>
+        <div ngbDropdownMenu>
+          <button class="dropdown-item" (click)="setAdvSearch(1,2)">Via</button>
+          <button class="dropdown-item" (click)="setAdvSearch(2,2)">Arco</button>
+          <button class="dropdown-item" (click)="setAdvSearch(5,2)">Nodo</button>
+          <button class="dropdown-item" (click)="setAdvSearch(3,2)">Civico</button>
+          <button class="dropdown-item" (click)="setAdvSearch(4,2)">Edificio</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Advanced search panel -->
+  <div class="card mt-1" *ngIf="advSearch">
+
+    <!-- Header -->
+    <div class="card-header">
+      <span class="pan-title" (click)="panCollapsed = !panCollapsed">
+        Ricerca {{advSearch.title}}
+      </span>
+
+      <button class="close" type="button" (click)="advSearch=null">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body" [ngbCollapse]="panCollapsed">
+
+      <!-- Form -->
+      <core-form [config]="advSearch.formCfg" [entity]="{}">
+      </core-form>
+
+      <!-- Toolbar -->
+      <div class="text-right">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="search()">
+          Cerca
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div *ngIf="advResults">
+        <b>Risultati</b>
+
+        <div class="adv-res-cont">
+          <div class="adv-res-item" *ngFor="let r of advResults" (click)="onResult(r)">
+            <div>{{r.getDescr()}} {{ceasedLabel(r)}}</div>
+            <div class="mun-div">{{locMunDescr(r)}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

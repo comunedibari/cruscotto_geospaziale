@@ -1,0 +1,46 @@
+<div>
+
+  <!-- Navigation bar -->
+  <app-navbar></app-navbar>
+
+  <!-- Main content -->
+  <div class="container-fluid" style="padding:0;">
+    <div #mainRow class="row no-gutters">
+
+      <!-- Sidebar -->
+      <div class="col-6 col-lg-3 full-height" [hidden]="hideSdb">
+        <app-sidebar></app-sidebar>
+      </div>
+
+      <!-- Webgis -->
+      <div [ngClass]="{'col-6 col-lg-9':!hideSdb, 'col-12':hideSdb}"
+        class="full-height">
+
+        <!-- grafo edit tools bar (in overlay on the map) -->
+        <grafo-edit
+          (showEntityEvt)="onShowEntity($event)"
+          (insertArcoEvt)="onInsertArco($event)"
+          (breakArcoEvt)="onBreakArco($event)"
+          (mergeArcoEvt)="onMergeArco($event)"
+          (renCivicoEvt)="onRenumberCivico($event)"
+          (renArcoEvt)="onRenameArco($event)"
+          (toggleSidebarEvt)="onToggleSidebar($event)">
+        </grafo-edit>
+
+        <!-- map -->
+        <webgis-map></webgis-map>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div #footerRow class="row no-gutters main-footer">
+      <div class="col-12 text-center">
+        <img src="assets/main/footer.png">
+      </div>
+    </div>
+
+  </div>
+
+</div>

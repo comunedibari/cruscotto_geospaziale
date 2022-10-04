@@ -1,0 +1,385 @@
+<div [ngStyle]="formStyle">
+  <form  [formGroup]="form" id="config['id']">
+
+    <!-- Fields group -->
+    <fieldset *ngFor="let fg of config['fg']" [hidden]="!fg.hidden ? false : fg.hidden"
+      [disabled]="fg.disabled">
+
+      <!--  Label Fields Group  -->
+      <legend *ngIf="fg.label != null" class="fg-legend">{{fg.label | translate}}</legend>
+
+      <!-- Row container -->
+      <div *ngFor="let row of fg['rows']" class="form-row">
+
+        <!-- Field container -->
+        <div *ngFor="let field of row" class="form-group col-12 col-md-{{field.width}}"
+          [hidden]="!field.hidden ? false : field.hidden">
+
+          <!-- Label field -->
+          <div *ngIf="field.label != null">
+            <label [attr.for]="field.key">{{field.label | translate}}</label>
+            <label *ngIf="field.required">&nbsp;*</label>
+          </div>
+          <!-- Field -->
+          <div [ngSwitch]="field.type">
+            <!-- Text -->
+            <input class="form-control form-control-sm"
+              *ngSwitchCase="'text'" [formControlName]="field.key"
+              [ngClass]="{'uppercase':field.uppercase}"
+              [id]="field.key" [type]="field.subType || field.type"
+              [pattern]="field.pattern"
+              (keypress)="keyPressInputText($event,field)"
+              (change)="changeField(field.key,$event,field.value,field)">
+
+            <p-inputMask *ngSwitchCase="'mask'"
+              formControlName="{{field.key}}"
+              styleClass="form-control form-control-sm"
+              mask="{{field.mask}}" autoClear="false"
+              (onBlur)="changeField(field.key,$event,field.value,field)">
+            </p-inputMask>
+
+            <!-- Number -->
+            <input class="form-control form-control-sm"  *ngSwitchCase="'number'"
+              [type]="'text'" [formControlName]="field.key"  [id]="field.key"
+              (keypress)="keyPressInputNumber($event,field.onlyNumber)"
+              (change)="changeField(field.key,$event,field.value,field)">
+
+            <!-- Textarea  -->
+            <textarea  class="form-control form-control-sm noresize-textarea"
+              *ngSwitchCase="'textarea'" [formControlName]="field.key" [id]="field.key"
+              (change)="changeField(field.key,$event,field.value,field)">
+            </textarea>
+
+            <!-- Boolean  -->
+            <input class="form-control form-control-sm" *ngSwitchCase="'boolean'"
+              type="text" [formControlName]="field.key" style="text-align:center;"
+              [ngClass]="{'readonly-field': !(field.disabled || fg.disabled)}"
+              (click)="changeBoolean(field)" readonly>
+
+            <!-- Select -->
+            <ng-select
+              class="custom"
+              [items]="field.options"
+              [searchable] = "false"
+              [clearable] = "false"
+              [multiple]="field.multiple || false"
+              [closeOnSelect]="!field.multiple"
+              [hideSelected]="field.multiple || false"
+              bindLabel="{{field.optionLabel || 'name'}}"
+              bindValue="{{field.optionValue || 'id'}}"
+              *ngSwitchCase="'select'"
+              appendTo="body"
+              [formControlName]="field.key"
+              (change)="changeField(field.key,$event,field.value,field)">
+
+              <!-- Template to show the option already selected-->
+              <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                <!-- If optionLabel is array -->
+                <div *ngIf="item && isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngFor="let key of field.optionLabel">
+                    {{item[key] | translate}}&nbsp;
+                  </span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </div>
+                <!-- If optionLabel is not array -->
+                <div *ngIf="item && !isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngIf="item[field.optionLabel]">
+                    {{item[field.optionLabel] | translate}}
+                  </span>
+                  <span class="ng-value-label" *ngIf="item['name']">
+                    {{item['name'] | translate}}
+                  </span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </div>
+              </ng-template>
+
+               <!-- Template to show list of options to select-->
+              <ng-template ng-option-tmp let-item="item" let-index="index"
+                let-value = "{{field.optionValue || 'id' || field.value}}">
+                <!-- If optionLabel is array -->
+                <div *ngIf="item && isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngFor="let key of field.optionLabel">
+                    {{item[key] | translate}}&nbsp;
+                  </span>
+                </div>
+                <!-- If optionLabel is not array -->
+                <div *ngIf="item && !isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngIf="item[field.optionLabel]">
+                    {{item[field.optionLabel] | translate}}
+                  </span>
+                  <span class="ng-value-label" *ngIf="item['name']">
+                    {{item['name'] | translate }}
+                  </span>
+                </div>
+              </ng-template>
+
+            </ng-select>
+
+            <!-- Search Select -->
+            <ng-select
+              class="custom"
+              [items]="ssOpt"
+              (change)="changeField(field.key,$event,field.value,field)"
+              [loading]="ssLoading"
+              [typeahead]="loadSsOpt"
+              [multiple]="field.multiple || false"
+              [hideSelected]="true"
+              bindValue="{{field.optionValue || 'id'}}"
+              placeholder="{{field.placeholder || 'Cerca'}}"
+              notFoundText="{{field.notFoundText || 'Nessun risultato'}}"
+              typeToSearchText="Scrivi per cercare"
+              *ngSwitchCase="'searchSelect'"
+              appendTo="body"
+              [formControlName]="field.key">
+
+              <!-- Template to show the option already selected-->
+              <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                <!-- If optionLabel is array -->
+                <div *ngIf="item && isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngFor="let key of field.optionLabel">
+                    {{item[key] | translate}}&nbsp;
+                  </span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </div>
+                <!-- If optionLabel is not array -->
+                <div *ngIf="item && !isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngIf="item[field.optionLabel]">
+                    {{item[field.optionLabel] | translate}}
+                  </span>
+                  <span class="ng-value-label" *ngIf="item['name']">
+                    {{item['name'] | translate}}
+                  </span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </div>
+              </ng-template>
+
+              <!-- Template to show list of options to select-->
+              <ng-template ng-option-tmp let-item="item" let-index="index"
+                let-value = "{{field.optionValue || 'id' || field.value}}">
+                <!-- If optionLabel is array -->
+                <div *ngIf="item && isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngFor="let key of field.optionLabel">
+                    {{item[key] | translate}}&nbsp;
+                  </span>
+                  <!-- If there is subOptionLabel and is array -->
+                  <small *ngIf="item && field.subOptionLabel && isArray(field.subOptionLabel) &&
+                    isValorizedSubOptionArray(item, field.subOptionLabel)">
+                    <br>
+                    <span class="ng-value-label" *ngFor="let key of field.subOptionLabel">
+                      {{item[key]}}&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                  </small>
+                   <!-- If there is subOptionLabel and is not array -->
+                  <small *ngIf="item && field.subOptionLabel && !isArray(field.subOptionLabel) &&
+                    item[field.subOptionLabel]">
+                    <br>
+                    <span class="ng-value-label" *ngIf="item[field.subOptionLabel]">
+                      {{item[field.subOptionLabel]}}
+                    </span>
+                  </small>
+                </div>
+                <!-- If optionLabel is not array -->
+                <div *ngIf="item && !isArray(field.optionLabel)">
+                  <!-- If there is image show it -->
+                  <span class="ng-value-label" *ngIf="item['image']">
+                    <img src="{{item['image']}}"/>&nbsp;
+                  </span>
+                  <span class="ng-value-label" *ngIf="item[field.optionLabel]">
+                    {{item[field.optionLabel] | translate}}
+                  </span>
+                  <span class="ng-value-label" *ngIf="item['name']">
+                    {{item['name'] | translate}}
+                  </span>
+                  <!-- If there is subOptionLabel and is array -->
+                  <small *ngIf="item && field.subOptionLabel && isArray(field.subOptionLabel) &&
+                    isValorizedSubOptionArray(item, field.subOptionLabel)">
+                    <br>
+                    <span class="ng-value-label" *ngFor="let key of field.subOptionLabel">
+                      {{item[key]}}&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                  </small>
+                   <!-- If there is subOptionLabel and is not array -->
+                  <small *ngIf="item && field.subOptionLabel && !isArray(field.subOptionLabel) &&
+                    item[field.subOptionLabel]">
+                    <br>
+                    <span class="ng-value-label" *ngIf="item[field.subOptionLabel]">
+                      {{item[field.subOptionLabel]}}
+                    </span>
+                  </small>
+                </div>
+              </ng-template>
+            </ng-select>
+
+            <!-- Timestamp -->
+            <input class="form-control form-control-sm"
+              [owlDateTime]="dt1" readonly
+              [ngClass]="{'readonly-field': !(field.disabled || fg.disabled)}"
+              [owlDateTimeTrigger]="dt1" [formControlName]="field.key"
+              *ngSwitchCase="'timestamp'"
+              (dateTimeChange)="changeField(field.key,$event,field.value,field)">
+              <owl-date-time #dt1 [pickerType]="getPickerType(field.subType)"
+              [hour12Timer]="false">
+              </owl-date-time>
+
+            <!-- Generic button -->
+            <button *ngSwitchCase="'button'"
+                title="{{field.title | translate}}"
+                class="btn btn-sm btn-{{field.class || 'secondary'}} btn-block"
+                (click)="changeButton(field)"
+                [disabled]="field.disabled">
+              <span *ngIf="field.btnLabel" class="button-font-size">
+                {{field.btnLabel | translate}}
+              </span>
+              <img *ngIf="field.btnImage" [src]="field.btnImage"
+                style="center" height="100%"/>
+            </button>
+
+            <!-- Color picker -->
+            <input class="form-control form-control-sm"
+              [formControlName]="field.key" *ngSwitchCase="'color'"
+              [colorPicker]="field.value"
+              [style.background]="field.value"
+              [style.color]="formGetInvertColor(field.value)"
+              [value]="field.value || ''"
+              [cpAlphaChannel]="'always'"
+              [cpOutputFormat]="field.outputFormat || 'hex'"
+              [cpDisableInput] = "true"
+              [cpPosition]="field.position || 'right'"
+              (colorPickerChange)="changeField(field.key,$event,field.value,field)"
+              (change)="inputColorChange(field.key,$event.target.value,field.value)">
+
+              <!--  Input file -->
+            <div *ngSwitchCase="'file'" >
+              <div class="input-group">
+
+                <!-- For validation -->
+              <input type="hidden" [formControlName]="field.key">
+
+                <div *ngIf="field.subType == 'image'"
+                  class="form-control form-control-sm text-center custom-input-file-image"
+                  [ngClass]="{'disabled-input-file': fg.disabled || field.disabled}">
+                  <img *ngIf="field.value != null" type="image" [src]="field.value" height="26"/>
+                </div>
+
+                <div *ngIf="field.subType == 'text'"
+                  class="form-control form-control-sm custom-input-file-text"
+                  [ngClass]="{'disabled-input-file': fg.disabled || field.disabled}">
+                  <span *ngIf="field.value != null">{{field.value}}</span>
+                </div>
+
+                <div class="btn-group">
+                  <label class="btn btn-secondary btn-sm folder"
+                    [ngClass]="{'disabled': fg.disabled || field.disabled}"
+                    [hidden]="field.value != null">
+                    <input name="file" type="file" style="display:none;"
+                      [accept]="field.subType == 'image' ? 'image/*' : ''"
+                      [disabled]="fg.disabled || field.disabled"
+                      (change)="changeField(field.key,$event.target.files[0],field.value,field)">
+                  </label>
+
+                  <button type="button" class="btn btn-secondary btn-sm delete"
+                    title="{{'WORD.DELETE' | translate}}"
+                    (click)="changeField(field.key,null,field.value,field)"
+                    [hidden]="field.value == null">
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Label -->
+            <div *ngSwitchCase="'text-list'" >
+              <div class="input-group">
+
+                <input class="form-control form-control-sm custom-text-list"
+                  [formControlName]="field.key"  [id]="field.key"
+                  (change)="changeField(field.key,$event.target.value,field.value,field)">
+
+                  <div class="btn-group">
+                    <button type="button"
+                      class="btn btn-secondary btn-sm custom-list"
+                      [ngbPopover]="attrPop" placement="right" container="body"
+                      popoverClass="font-project">
+                    </button>
+                  </div>
+
+                  <!-- Popover template -->
+                  <ng-template #attrPop>
+                    <div *ngIf="field['source'].length > 0" class="lbl-pop">
+                      <div *ngFor="let s of field['source']"
+                        class="lbl-pop-item"
+                        (click)="changeField(field.key,s,field.value,field)">
+                        {{s}}
+                      </div>
+                    </div>
+                    <div *ngIf="field['source'].length == 0">
+                      <div class="lbl-pop-item">
+                        {{'MESSAGE.NO_DATA' | translate}}
+                      </div>
+                    </div>
+                  </ng-template>
+
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="field.type != 'button'">
+            <div style="color:red" *ngIf="(isInvalidField(field.key) && submit)">
+              <div [ngSwitch]="errorField(field.key)">
+                <div *ngSwitchCase="'required'">
+                  {{'MESSAGE.MANDATORY_FIELD' | translate}}
+                </div>
+                <div *ngSwitchCase="'email'">
+                  {{'MESSAGE.INVALID_EMAIL' | translate}}
+                </div>
+                <div *ngSwitchCase="'minlength'">
+                {{'MESSAGE.LENGTH_MIN' | translate}} {{field.minLength}}
+                {{'WORD.CHARACTERS' | translate}}
+                </div>
+                <div *ngSwitchCase="'maxlength'">
+                  {{'MESSAGE.LENGTH_MAX' | translate}} {{field.maxLength}}
+                  {{'WORD.CHARACTERS' | translate}}
+                </div>
+                <div *ngSwitchCase="'pattern'">
+                  {{'MESSAGE.INVALID_FORMAT' | translate}}
+                </div>
+                <div *ngSwitchCase="'invalidNumber'">
+                  {{'MESSAGE.NUMERIC_FIELD' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+</div>
+

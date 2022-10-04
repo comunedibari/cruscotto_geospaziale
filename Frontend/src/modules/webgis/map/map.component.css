@@ -1,0 +1,287 @@
+
+#mapDivContainer {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#mapDiv {
+  width: 100%;
+  height: 100%;
+}
+
+#mapFooter {
+  position: absolute;
+  z-index: 10;
+  bottom: 0px;
+  background-color: var(--webgis-bg-color);
+  color: rgb(255,255,255);
+  width: 100%;
+  min-height: 28px;
+}
+
+#mapWatermark {
+  font-size: 11px;
+}
+
+#mapCoords {
+  padding-left: 4px;
+}
+
+#mapCoords, #mapScale, #mapWatermark {
+  padding-top: 4px;
+}
+
+#mapSR {
+  padding-right: 0px;
+  text-align: right;
+}
+
+#mapToolbar {
+  width:400px;
+  background-color: #fff;
+  padding-right: 48px;
+  padding-left: 8px;
+  top: var(--gistools-height);
+  overflow-y:auto;
+  padding-top: 0.5rem;
+}
+
+.toolTitle {
+  padding: 0.5rem 0rem;
+  font-weight: 600;
+}
+
+#mapToolbarTitle
+{
+  width:400px;
+  background-color: #fff;
+  padding-right: 48px;
+  padding-left: 8px;
+  top: var(--gistools-height);
+  margin-bottom: 0px;
+}
+
+.custom-scale-line {
+  margin: 2px;
+  padding: 2px;
+}
+
+.custom-scale-line-inner {
+  border:1px solid #eee;
+  border-top:none;
+  color:#eee;
+  font-size:10px;
+  text-align:center;
+  margin:1px;
+}
+
+.custom-mouse-position
+{
+  position: absolute;
+  top: 2em;
+  right: 1px;
+  width: 99%;
+  color: #ffffff;
+  text-align: center;
+}
+
+.footer-control-button {
+  background-color: transparent;
+  outline: none !important;
+  box-shadow: none !important;
+  color: rgb(255,255,255);
+}
+
+.footer-control-button:hover {
+  background-color: var(--webgis-hover-color);
+}
+
+.map-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  right: 12px;
+}
+
+.map-popup-go-summary {
+  text-decoration: none;
+  position: absolute;
+  right: 12px;
+  top: -2px;
+}
+
+.summaryPopup {
+  min-width: var(--webgis-popup-min-width);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.featurePopup {
+  min-width: var(--webgis-popup-min-width);
+  font-size: var(--webgis-popup-font-size);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.clusterPopup {
+  min-width: var(--webgis-popup-min-width);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.summaryRow {
+  padding: 6px 0px;
+}
+
+.popupLabel {
+  font-weight: 700;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-decoration: none;
+}
+
+.popupValue {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.rowImage {
+  padding: 1em 0em 1em 0em;
+}
+
+.popupImage {
+  width: var(--webgis-popup-min-width);
+}
+
+.featureHover {
+  min-width: var(--webgis-hover-min-width);
+  font-size: var(--webgis-popup-font-size);
+  border: 0.5px solid black;
+  background-color: white;
+  padding: 0.4em 0em 0.4em 0em;
+}
+
+.selectedLayerTitle {
+  padding: 6px 0px;
+  font-weight: 600;
+}
+
+.selectedLayerRow {
+  padding: 3px 0px;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+
+#mapBaseCtrl {
+  position: absolute;
+  z-index: 30;
+  right:0px;
+  top:60px;
+  height: 160px;
+}
+
+#mapAdvCtrl {
+  position: absolute;
+  z-index: 30;
+  right:0px;
+  top:240px;
+  height: 160px;
+}
+
+#mapOverview {
+  position: absolute;
+  bottom: 28px; /* mapFooter height */
+  visibility: hidden;
+}
+
+.control-button {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background-color: var(--webgis-bg-color);
+  border-radius: 4px 0 0 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.last-control-button {
+  border-bottom-left-radius: 0 !important;
+}
+
+.zoomin {
+  background-image: url(/assets/common/plus.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.zoomout {
+  background-image: url(/assets/common/minus.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.zoombox {
+  background-image: url(/assets/webgis/zoom-box.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.zoomall {
+  background-image: url(/assets/webgis/full-extent.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.layer {
+  background-image: url(/assets/webgis/layer.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.legend {
+  background-image: url(/assets/webgis/legend.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.measure {
+  background-image: url(/assets/webgis/measure.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.print {
+  background-image: url(/assets/webgis/printer.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.search {
+  background-image: url(/assets/webgis/filter.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.query {
+  background-image: url(/assets/webgis/cursor.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.overview {
+  background-image: url(/assets/webgis/overview.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+  border-top-left-radius: 0 !important;
+  border-top: 1px solid rgb(56, 56, 56)
+}
+
+.btn-gis:hover {
+  background-color: var(--webgis-hover-color);
+}
+
+.btn-gis-active {
+  background-color: var(--webgis-selected-color);
+}

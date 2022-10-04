@@ -1,0 +1,25 @@
+.plus {
+  background-image: url(/assets/common/plus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius:  4px;
+  outline: none !important;
+  box-shadow: none !important;
+  margin-left: 10px;
+}
+
+.minus {
+  background-image: url(/assets/common/minus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius:  4px;
+  outline: none !important;
+  box-shadow: none !important;
+  margin-left: 2px;
+}

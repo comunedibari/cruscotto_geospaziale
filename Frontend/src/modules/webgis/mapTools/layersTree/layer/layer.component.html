@@ -1,0 +1,48 @@
+<div class="container-fluid" *ngIf="item" id="layerContainer"
+ (click)="isCollapsed = !isCollapsed;$event.stopPropagation();">
+
+  <div class="row no-gutters">
+    <span>{{item.label}}&nbsp;</span>
+    <span class="itemScale"
+          *ngIf="layerHasScaleLimit(item)"
+          [ngSwitch]="scaleLimitType(item)">
+      <span *ngSwitchCase="'_FROM_SCALE_'">
+        ({{'WORD.FROM' | translate}}&nbsp;1:{{item.max_scale}})
+      </span>
+      <span *ngSwitchCase="'_UNTIL_TO_SCALE_'">
+        ({{'WORD.UNTIL_TO' | translate}}&nbsp;1:{{item.min_scale}})
+      </span>
+      <span *ngSwitchCase="'_FROM_TO_SCALE_'">
+        ({{'WORD.FROM' | translate}}&nbsp;1:{{item.min_scale}}&nbsp;
+        {{'WORD.TO' | translate}}&nbsp;1:{{item.max_scale}})
+      </span>
+    </span>
+  </div>
+
+  <div class="row no-gutters" [ngbCollapse]="isCollapsed">
+    <!-- opacity slider -->
+    <div class="col-2" style="margin:3px 0px;" *ngIf="item.id_type != null">
+        {{item.opacityPerc | number:'1.0-0'}} %
+    </div>
+    <div class="col-8" style="margin:10px 0px; padding-right:10px"
+      *ngIf="item.id_type != null">
+      <p-slider [(ngModel)]="item.opacityPerc"
+        (onChange)='onUserChangeOpacity($event);'
+        (onSlideEnd)='isCollapsed = !isCollapsed;'>
+      </p-slider>
+    </div>
+    <div class="col-2 text-center">
+      <div class="btn-toolbar">
+        <button type="button" ngbTooltip="{{'WORD.ZOOM' | translate}}" container="body"
+            class="btn close btn-zoom"  *ngIf="item.id_type != null"
+            (click)="onZoomIn(); $event.stopPropagation();">
+        </button>
+        <!-- Show user style button only if the service is WFS-->
+        <button type="button" ngbTooltip="{{'WORD.STYLE' | translate}}" container="body"
+            class="btn close btn-user-style" *ngIf="showUserStyle(item)"
+            (click)="onUserStyle();$event.stopPropagation();">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

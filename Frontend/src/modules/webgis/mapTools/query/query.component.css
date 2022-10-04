@@ -1,0 +1,23 @@
+.feature-label {
+  font-weight: bold;
+}
+
+.legend  {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  padding-top: 6px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.reset-info {
+  background-image: url(/assets/common/repeat.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -1,0 +1,21 @@
+/*
+ * Alert
+ */
+.alert {
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  z-index: 100;
+  position: absolute;
+  background-color: rgba(0,0,0,0.1);
+  margin:0;
+}
+
+.alert-content {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 4px;
+}

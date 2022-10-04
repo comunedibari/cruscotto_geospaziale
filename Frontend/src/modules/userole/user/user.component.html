@@ -1,0 +1,47 @@
+<!-- Modal header -->
+<div class="modal-header">
+  <div class="modal-title">
+    {{'WORD.MANAGE_USERS' | translate}}
+  </div>
+  <button type="button" class="close" (click)="modalInst.dismiss('')">
+     <span>&times;</span>
+  </button>
+</div>
+<!-- Modal body -->
+<div class="modal-body">
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)"></core-alert>
+
+  <div class="row no-gutters">
+
+    <!-- List user  -->
+    <div class="col-4">
+
+      <!--  Collection     -->
+      <core-collection [config]="collCfg" (selectedItem)="onCollSelItem($event)"
+        (tlbButton)="onCollButtonClick($event)">
+      </core-collection>
+    </div>
+
+    <!-- Detail User  -->
+    <div class="col-8" [hidden]="!selUser" style="padding-left:15px;">
+      <!-- Form  -->
+      <core-form [config]="formCfg" [entity]="selUser"
+        (fieldChanged)="onFieldChanged($event)">
+      </core-form>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="bottom-toolbar"  *ngIf="selUser">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="save()">
+      {{'WORD.SAVE' | translate}}
+    </button>
+    <button type="button" class="btn btn-sm btn-secondary ml-1" (click)="close()">
+      {{'WORD.CLOSE' | translate}}
+    </button>
+  </div>
+
+</div>
+

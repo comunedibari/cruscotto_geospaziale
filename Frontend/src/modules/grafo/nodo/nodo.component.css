@@ -1,0 +1,29 @@
+.toolbar {
+  margin-top: 10px;
+}
+
+.message {
+  border: 1px solid #ddd;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.message-btn {
+  margin-top: -2px;
+}
+
+.btn-hilight {
+  background-image: url(/assets/grafo/highlight.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  padding: 0 16px;
+}
+
+.btn-zoom {
+  background-image: url(/assets/grafo/zoom.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  padding: 0 16px;
+}

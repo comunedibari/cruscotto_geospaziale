@@ -1,0 +1,50 @@
+
+.btn-controls {
+  width: 16px;
+  height: 16px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/webgis/controls.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.btn-zoom {
+  width: 16px;
+  height: 16px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/common/zoom-in.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  margin:5px 5px 5px 0px;
+}
+
+.btn-user-style {
+  width: 16px;
+  height: 16px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/common/userStyle.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  margin:5px 0px 5px 0px;
+}
+
+#layerContainer {
+/*  background-color: #f6f6f6;
+  border: 1px solid #ddd;*/
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+#layerContainer .row{
+  margin: 0px;
+}
+
+.itemScale {
+  font-weight: normal;
+  font-size: 10px;
+}

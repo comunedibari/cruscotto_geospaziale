@@ -1,0 +1,21 @@
+.btn-add-cond {
+  margin: 18px 0px 0px 0px;
+  width: inherit;
+  height: 28px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/common/plus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.btn-rem-cond {
+  margin: 18px 0px 0px 0px;
+  width: inherit;
+  height: 28px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/common/minus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}

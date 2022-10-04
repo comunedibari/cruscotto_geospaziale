@@ -1,0 +1,64 @@
+.clear-search{
+  height: 28px;
+  background-color:white;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius:0 .25rem .25rem 0;
+}
+
+.clear-search:focus {
+  text-decoration: none;
+  outline:none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius:0 .25rem .25rem 0;
+}
+
+.input-search{
+  height:28px;
+  border-radius:.25rem 0 0 .25rem;
+  border: 1px solid #ccc;
+  border-right:none;
+}
+
+.input-search:focus{
+  height:28px;
+  border-radius:.25rem 0 0 .25rem;
+  border: 1px solid #ccc;
+  border-right:none;
+  text-decoration: none;
+  outline:none;
+  box-shadow: none;
+}
+
+/*
+ * Buttons
+ */
+.control-button {
+/*   display: block; */
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.plus {
+  background-image: url(/assets/common/plus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.minus {
+  background-image: url(/assets/common/minus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.pencil {
+  background-image: url(/assets/common/pencil.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}

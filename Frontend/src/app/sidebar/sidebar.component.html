@@ -1,0 +1,25 @@
+<div class="sidebar">
+
+  <!-- Grafo search -->
+  <grafo-search (selResult)="onSearchResult($event)">
+  </grafo-search>
+
+  <!-- Grafo insert arco -->
+  <grafo-insert-arco (insertArcoEvt)="onInsertArco($event)"></grafo-insert-arco>
+
+  <!-- Grafo break arco -->
+  <grafo-break-arco (showDetailEvt)="showDetail($event)"></grafo-break-arco>
+
+  <!-- Grafo merge arco -->
+  <grafo-merge-arco (showDetailEvt)="showDetail($event)"></grafo-merge-arco>
+
+  <!-- Grafo civico renumber -->
+  <grafo-renumber-civico (renCivicoEvt)="showRenumberCivico($event)"></grafo-renumber-civico>
+
+  <!-- Grafo civico renumber -->
+  <grafo-rename-arco (renArcoEvt)="showRenameArco($event)"></grafo-rename-arco>
+
+  <!-- Grafo element detail -->
+  <grafo-detail></grafo-detail>
+
+</div>

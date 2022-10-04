@@ -1,0 +1,24 @@
+/*
+ * Dictionries list css
+ */
+.list {
+  max-height: 430px;
+  overflow-y: auto;
+}
+
+.list-item {
+  cursor: pointer;
+  padding: 8px 4px;
+  font-size: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-item:hover {
+  background-color: #e4e4e4;
+}
+
+.list-item-sel {
+  background-color: #e4e4e4;
+}

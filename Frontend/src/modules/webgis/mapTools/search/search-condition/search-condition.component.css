@@ -1,0 +1,46 @@
+.btn-delete-cond {
+  margin: 17px 0px 0px 1px;
+  width: inherit;
+  height: 28px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/common/minus.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.features-searched {
+  margin-top: 15px;
+  padding-top: 2px;
+  overflow-x: hidden;
+  border-top: solid;
+  border-color: #1e3f73;
+  border-width: 1px;
+  max-height: 180px;
+  overflow-y:auto;
+}
+
+.feature-searched {
+  border-bottom:solid;
+  border-width: 1px;
+  border-color: #08345a;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.features-result {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.feature-label {
+  font-weight: bold;
+}
+
+.feature-selected {
+  background-color: #F1F1F1;
+  border: solid;
+  border-width: 1px;
+}

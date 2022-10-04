@@ -1,0 +1,33 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<div>
+
+  <!-- Toolbar  -->
+  <div *ngIf="configToolbar">
+    <core-toolbar [config]="configToolbar" (buttonClick)="onButtonClick($event)"
+      (search)="onSearch($event)">
+    </core-toolbar>
+  </div>
+
+  <!-- Collection -->
+  <div style="font-size:14px;margin:10px;text-align:center"
+    *ngIf="data.length == 0 && !loading" >{{'MESSAGE.NO_DATA' | translate}}</div>
+
+  <div [ngStyle]="config['style']" *ngIf="data.length > 0">
+      <div *ngFor="let item of data" class="row coll-item"
+        (click)="itemSelected(item)" [ngClass]="itemCss[item.id]">
+        <div>
+            <b>{{item[fr]}}</b><br>
+            {{item[sr]}}
+          </div>
+      </div>
+  </div>
+
+  <!-- Pagination  -->
+  <core-pagination [hidden]="!config['pagination'] || data.length == 0" *ngIf="dataPag"
+    [config]="configPag" (pageLoaded)="onPageLoaded($event)">
+  </core-pagination>
+</div>

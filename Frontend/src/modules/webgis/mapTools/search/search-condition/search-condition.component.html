@@ -1,0 +1,96 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="showLoader">
+  <div class="spinner"></div>
+</div>
+
+<div>
+  <div class="row no-gutters">
+    <div class="btn-group btn-group-toggle mb-2 col-4" ngbRadioGroup
+      [(ngModel)]="searchObj.opLogic">
+
+    <label ngbButtonLabel class="btn btn-sm btn-outline-secondary">
+        <input ngbButton type="radio" [value]="'AND'"> AND
+      </label>
+      <label ngbButtonLabel class="btn btn-sm btn-outline-secondary">
+        <input ngbButton type="radio" [value]="'OR'"> OR
+      </label>
+
+    </div>
+
+    <div class="col-8 pl-2">
+      <button type="button" ngbTooltip="{{'MESSAGE.ADD_CONDITION_SEARCH' | translate}}"
+        class="btn btn-sm btn-secondary " container="body"
+        (click)="addCondition()">
+        {{'MESSAGE.ADD_CONDITION_SEARCH' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div class="row no-gutters" *ngFor="let c of searchObj.conditions; let idxCond = index">
+
+    <div class="col-11">
+      <core-form [config]="c.formCfg" [entity]="c"
+        (fieldChanged)="onSearchCondFormChanged($event)">
+      </core-form>
+    </div>
+
+    <div class="col-1">
+      <button type="button" class="btn btn-sm btn-secondary btn-delete-cond"
+        container="body" (click)="deleteCondition(idxCond)">
+      </button>
+    </div>
+  </div>
+
+  <div style="width:100%" *ngIf="showResult">
+    <div *ngIf="featuresArray.length>0">
+      <div class="features-result" *ngIf="featuresArray.length == totalFeatures && !showLoader">
+          {{"MESSAGE.RESULTS_NUMBER" | translate}}: {{featuresArray.length}}
+      </div>
+
+      <div class="features-result" *ngIf="featuresArray.length < totalFeatures && !showLoader">
+          {{"MESSAGE.RESULTS_NUMBER" | translate}}: {{totalFeatures}}.
+          {{"WEBGIS.SEARCH_EXCEEDS" | translate}}
+      </div>
+
+      <div class="features-searched">
+        <div id={{getFeatureId(feature.id)}} class="feature-searched"
+            (click)="clickFeature(feature)"
+            *ngFor="let feature of featuresArray">
+          <div class="row no-gutters" *ngFor="let item of feature['custom_properties'] | keyvalue">
+            <div class="col-6 feature-label">
+                {{item.key | translate}}:
+            </div>
+            <div class="col-6">
+              {{item.value}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-result" *ngIf="featuresArray.length == 0 && !showLoader">
+      <strong>{{"MESSAGE.NO_RESULT_FOUND" | translate}} </strong>
+    </div>
+
+  </div>
+
+  <div style="width:100%" *ngIf="showError">
+    <div class="features-result">
+      {{"MESSAGE.DETAIL_ERR" | translate}}
+    </div>
+  </div>
+
+  <div [hidden]="searchObj.conditions.length == 0" class="bottom-toolbar">
+
+    <div>
+      <button class="btn btn-sm btn-secondary" (click)="resetSearch()">
+        Reset
+      </button>
+      <button class="btn btn-sm btn-secondary ml-1"
+        (click)="search()">
+        {{"WORD.SEARCH" | translate}}
+      </button>
+    </div>
+  </div>
+
+</div>

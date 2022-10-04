@@ -1,0 +1,68 @@
+<div class="container-fluid" id="legend">
+  <!-- Categories -->
+  <div *ngFor="let cat of catList">
+
+    <!-- Category Tab header -->
+    <div class="cat-header" (click)="cat.closed = !cat.closed">
+      <img src="assets/common/arrow-right.png"
+            class="arrow-img" *ngIf="cat.closed">
+      <img src="assets/common/arrow-down.png"
+          class="arrow-img" *ngIf="!cat.closed">
+      <span>
+        {{cat.label}}
+      </span>
+    </div>
+
+    <!-- Category Tab content -->
+    <div [ngbCollapse]="cat.closed">
+      <p-tree #tree [value]="cat.layers"
+        styleClass="legend-p-tree">
+
+        <ng-template let-node pTemplate="default">
+          <div *ngIf="node['icon']">
+
+            {{node['label']}}
+            <!-- Layer WFS: style with rules and without children  -->
+            <div *ngIf="(node['styleTypeOL'] == 'PROPERTY' || node['styleTypeOL'] == 'STYLE')
+              && node['style']">
+
+              <p-tree #tree [value]="iconsRules(node['icon'])"
+                styleClass="legend-p-tree">
+                <ng-template let-nodeRule pTemplate="default">
+                    <img src="{{nodeRule['image']}}"/> &nbsp; {{nodeRule['label']}}
+                </ng-template>
+              </p-tree>
+
+            </div>
+
+            <!-- Layer WFS: styleTypeOL == FIXED  -->
+            <div *ngIf="node['styleTypeOL'] == 'FIXED'">
+              <img src="{{node['icon']}}"/> &nbsp;
+            </div>
+
+            <!-- Layer WFS: Layer child with icon  -->
+            <div *ngIf="isObject(node['icon'])">
+              <img src="{{node['icon']['image']}}"/> &nbsp;
+            </div>
+
+            <!-- Layer WFS/WMS with icon  -->
+            <div *ngIf="!isObject(node['icon']) && node['styleTypeOL'] == null">
+              <img src="{{node['icon']}}" (error)="changeSource($event, node)"/>
+              <span *ngIf="errorIcon[node['id']]">
+                &nbsp; {{"WEBGIS.LEGEND_NOT_AVAILABLE" | translate}}
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Layer without icon   -->
+          <div *ngIf="!node['icon']">
+            {{node['label']}}
+          </div>
+        </ng-template>
+
+      </p-tree>
+    </div>
+
+  </div>
+</div>

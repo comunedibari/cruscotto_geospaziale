@@ -1,0 +1,11 @@
+/* Pagination */
+.core-pagination {
+  margin-top: 6px;
+  margin-bottom: 0px;
+}
+
+.core-pagination-info {
+  text-align: right;
+  margin-top: 6px;
+  font-size: 12px;
+}

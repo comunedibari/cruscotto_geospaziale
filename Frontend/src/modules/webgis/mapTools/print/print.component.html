@@ -1,0 +1,19 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="showLoader">
+  <div class="spinner"></div>
+</div>
+
+<div class="container-fluid">
+
+  <div class="row no-gutters">
+
+    <!-- Print form     -->
+    <core-form [config]="printFormCfg" [entity]="printEnt"
+      (fieldChanged)="onPrintFormChanged($event)">
+    </core-form>
+
+    <div class="error-msg" *ngIf="printError">{{"WEBGIS.PRINT_ERROR"|translate}}</div>
+    <div class="error-msg" *ngIf="printBadEPSGMsg">{{"WEBGIS.PRINT_BAD_EPSG"|translate}}</div>
+  </div>
+</div>
+

@@ -1,0 +1,14 @@
+
+.toolbar {
+  margin-top: 10px;
+}
+
+.message {
+  border: 1px solid #ddd;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.message-btn {
+  margin-top: -2px;
+}

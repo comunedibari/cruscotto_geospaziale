@@ -1,0 +1,19 @@
+<div *ngIf="config['msg']" class="alert">
+  <div class="alert-content alert-{{config['style']}}">
+
+    <p>{{config['msg'] | translate}}</p>
+
+    <div class="text-right">
+      <button *ngIf="config['bt0']" (click)="btnClicked(0)"
+        class="btn btn-sm btn-{{config['style']}}">
+        {{config['bt0'] | translate}}
+      </button>
+
+      <button *ngIf="config['bt1']" (click)="btnClicked(1)"
+        class="btn btn-sm btn-{{config['style']}} ml-1">
+        {{config['bt1'] | translate}}
+      </button>
+    </div>
+
+  </div>
+</div>

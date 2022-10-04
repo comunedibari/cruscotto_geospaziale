@@ -1,0 +1,41 @@
+{
+  "/er/*":
+  {
+    "target": "http://192.168.1.192:8010",
+    "secure": false,
+    "logLevel": "error",
+    "changeOrigin": true,
+    "pathRewrite": {"^/er": ""}
+  },
+  "/ew/*":
+  {
+    "target": "http://192.168.1.192:8020",
+    "secure": false,
+    "logLevel": "error",
+    "changeOrigin": true,
+    "pathRewrite": {"^/ew": ""}
+  },
+  "/gs/*":
+  {
+    "target": "http://192.168.1.193:8080",
+    "secure": false,
+    "logLevel": "error",
+    "changeOrigin": true,
+    "pathRewrite": {"^/gs": ""}
+  },
+  "/as/*":
+  {
+    "target": "http://192.168.1.192:8080",
+    "secure": false,
+    "logLevel": "error",
+    "changeOrigin": true,
+    "pathRewrite": {"^/as": ""}
+  },
+  "/proxy/*":
+  {
+    "target": "http://192.168.1.190:80",
+    "secure": false,
+    "logLevel": "error",
+    "changeOrigin": true
+  }
+}

@@ -1,0 +1,47 @@
+.nav-row {
+  min-height: 50px; /* TODO: to avoid initial scroll */
+  background-color: #e20a16;
+}
+
+.navbar-logo {
+  padding-left:10px; 
+}
+
+.menu-img {
+  padding-left: 10px;
+}
+
+.userInfo {
+  color: #fff;
+  cursor: pointer;
+}
+
+.logout {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+/*
+ * Update bootstrap class
+ */
+
+.navbar {
+  padding: 0 0;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background-color: #ca0914;
+}
+
+.nav-item.show {
+  background-color: #ca0914;
+}
+
+.dropdown-menu {
+  font-size: 12px;
+  cursor: pointer;
+}

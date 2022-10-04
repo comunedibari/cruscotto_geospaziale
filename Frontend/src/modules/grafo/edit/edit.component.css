@@ -1,0 +1,201 @@
+.grafoToolsEdit{
+  position: absolute;
+  height: var(--gistools-height);
+  width:100%;
+}
+
+.editRow {
+  margin-top: 6px;
+}
+
+.editBtn {
+  z-index: 50;
+}
+
+.suppBtn {
+  z-index: 10;
+}
+
+#grafoItemTools{
+  left: 48px;
+}
+
+#edificioSupplementaryTools{
+  left: 64px;
+}
+
+.editBar{
+  left:32px;
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.editBtnLbl{
+  font-size: 11px;
+  padding-left: 8px;
+}
+
+.btn-edit:hover {
+  background-color: rgba(226,226,226,0.93);
+}
+
+.btn-edit-active {
+  background-color: rgba(226,226,226,0.93) !important;
+}
+
+.btn-group-active {
+  background-color: rgba(226,226,226,0.93) !important;
+}
+
+.layer-button {
+  display: block;
+  height: 36px;
+  width: 80px;
+  background-color: rgba(246,246,246,0.93);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 2px;
+}
+
+.action-button {
+  display: block;
+  height: 36px;
+  width: 40px;
+  background-color: rgba(246,246,246,0.93);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 2px;
+}
+
+.sidebar {
+  left:8px;
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  background-image: url(/assets/grafo/sidebar.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.newCivico {
+  background-image: url(/assets/grafo/add.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.delCivico {
+  background-image: url(/assets/grafo/delete.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.moveCivico {
+  background-image: url(/assets/grafo/moveCivico.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.renCivico {
+  background-image: url(/assets/grafo/renCivico.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.newArco {
+  background-image: url(/assets/grafo/add.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.delArco {
+  background-image: url(/assets/grafo/delete.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.breakArco {
+  background-image: url(/assets/grafo/breakArco.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.mergeArco {
+  background-image: url(/assets/grafo/mergeArco.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.shapeArco {
+  background-image: url(/assets/grafo/shapeArco.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.renameArco {
+  background-image: url(/assets/grafo/renArco.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.moveNode {
+  background-image: url(/assets/grafo/moveNode.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.addEdificio {
+  background-image: url(/assets/grafo/add.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.delEdificio {
+  background-image: url(/assets/grafo/delete.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.modifyEdificio {
+  background-image: url(/assets/grafo/modifyEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.drawEdificio {
+  background-image: url(/assets/grafo/drawEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.regEdificio {
+  background-image: url(/assets/grafo/regEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.copyEdificio {
+  background-image: url(/assets/grafo/copyEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.holeEdificio {
+  background-image: url(/assets/grafo/holeEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.removeHoleEdificio {
+  background-image: url(/assets/grafo/removeHoleEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.transformEdificio {
+  background-image: url(/assets/grafo/transformEdificio.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}

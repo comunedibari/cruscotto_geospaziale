@@ -1,0 +1,79 @@
+<!-- Modal header -->
+<div class="modal-header">
+  <div class="modal-title">
+    {{'WORD.MANAGE_ROLES' | translate}}
+  </div>
+  <button type="button" class="close" (click)="modalInst.dismiss('')">
+     <span>&times;</span>
+  </button>
+</div>
+<!-- Modal body -->
+<div class="modal-body">
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)"></core-alert>
+
+  <div class="row no-gutters">
+
+    <!-- List roles  -->
+    <div class="col-4">
+      <!--  Collection     -->
+      <core-collection [config]="collCfg" (selectedItem)="onCollSelItem($event)"
+        (tlbButton)="onCollButtonClick($event)">
+      </core-collection>
+    </div>
+
+    <!-- Detail Role  -->
+    <div class="col-8" [hidden]="!selRole" style="padding-left:15px;">
+      <!-- Form  -->
+      <core-form [config]="formCfg" [entity]="selRole"
+        (fieldChanged)="onFieldChanged($event)">
+      </core-form>
+
+      <div style="margin-top:10px;" *ngIf="selRole">
+
+        <p-table [value]="permissions" [scrollable]="true" scrollHeight="340px"
+          tableStyleClass="font-project">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="background-color: var(--table-header-bg);
+                border-color: var(--table-header-border);
+                color: var(--table-color);">
+                {{"WORD.MODULE" | translate}}
+              </th>
+              <th style="background-color: var(--table-header-bg);
+                border-color: var(--table-header-border);
+                color: var(--table-color);">
+                {{"WORD.PERMISSION" | translate}}
+              </th>
+              <th style="background-color: var(--table-header-bg);
+                border-color: var(--table-header-border);
+                color: var(--table-color);"></th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-permission>
+              <tr>
+                <td>{{permission.app_desc}}</td>
+                <td>{{permission.description}}</td>
+                <td class="text-center">
+                  <input type="checkbox" [(ngModel)]="selRole.permObj[permission.id]">
+                </td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="bottom-toolbar" *ngIf="selRole">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="save()">
+      {{'WORD.SAVE' | translate}}
+    </button>
+    <button type="button" class="btn btn-sm btn-secondary ml-1" (click)="close()">
+      {{'WORD.CLOSE' | translate}}
+    </button>
+  </div>
+
+</div>

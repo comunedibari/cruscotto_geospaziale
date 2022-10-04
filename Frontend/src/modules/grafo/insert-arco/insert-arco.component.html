@@ -1,0 +1,74 @@
+<!-- Panel -->
+<div class="card mt-1" *ngIf="visible">
+
+  <!-- Header -->
+  <div class="card-header">
+    <span class="pan-title" (click)="collapsed = !collapsed">
+     Inserimento Arco Stradale
+    </span>
+
+    <button class="close" type="button" (click)="close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div [ngStyle]="bodyStyle" class="card-body" [ngbCollapse]="collapsed">
+    
+    <div *ngIf="(error | json) == '{}'">
+      <!-- is valid message -->
+      <div class="msg-header">{{isValidMsg}}</div>
+
+      <!-- header message -->
+      <div class="msg-header">{{headerMsg}}</div>
+
+      <!-- vertices messages -->
+      <div class="">Analisi vertici</div>
+      <ul>
+        <li *ngFor="let m of verticesMsg;" class="">
+          <span>{{m}}</span>
+        </li>
+      </ul>
+
+      <!-- chunks messages -->
+      <div *ngIf="chunksMsg.length">
+        <div class="">Analisi segmenti</div>
+        <ul>
+          <li *ngFor="let m of chunksMsg;" class="">
+            <span>{{m}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="row no-gutters toolbar" *ngIf="(error | json) == '{}'">
+      <div class="col-6 toolbar-msg">
+      </div>
+
+      <div class="col-6 text-right">
+        <button type="button" class="btn btn-sm btn-secondary ml-1" (click)="reset()">
+          Annulla
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary ml-1" *ngIf="entity" (click)="showInsertForm()">
+          Procedi
+        </button>
+      </div>
+    </div>
+
+    <!-- Error management -->
+    <div *ngIf="(error | json) != '{}'">
+      <div class="alert-content alert-danger">{{error.msg}}</div>
+
+      <div class="text-right">
+        <button  (click)="alertDone()"
+          class="btn btn-sm btn-danger">
+          {{error.btOk}}
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

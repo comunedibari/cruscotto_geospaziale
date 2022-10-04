@@ -1,0 +1,19 @@
+/*
+ * Collection
+ */
+.coll-item {
+  cursor: pointer;
+  padding: 4px;
+  font-size: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.coll-item:hover {
+  background-color: #e4e4e4;
+}
+
+.coll-item-sel {
+  background-color: #e4e4e4;
+}

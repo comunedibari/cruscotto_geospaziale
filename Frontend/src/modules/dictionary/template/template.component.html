@@ -1,0 +1,30 @@
+<!-- Alert -->
+<core-alert [config]="alert" (alertDone)="onAlertDone($event)">
+</core-alert>
+
+<!-- Content -->
+<div class="row no-gutters">
+
+  <!-- List -->
+  <div class="col-4 list">
+
+    <div *ngFor="let item of dicts" class="list-item" (click)="onDict(item)"
+      [ngClass]="{'list-item-sel':isDictSel(item)}">
+
+      <b>{{item.name}}</b>
+      <div>{{item.descr}}</div>
+
+    </div>
+
+  </div>
+
+  <!-- Table -->
+  <div class="col-8 pl-3" [hidden]="!selDict">
+
+    <core-table [config]="tableCfg"
+      (tableButton)="onTableButton($event)">
+    </core-table>
+
+  </div>
+
+</div>

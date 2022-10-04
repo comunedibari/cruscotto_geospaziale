@@ -1,0 +1,55 @@
+<div class="container-fluid"  id="search">
+
+  <!-- search layer form     -->
+  <div class="tlb">
+    <core-form [config]="searchLayerFormCfg" [entity]="searchLayer"
+      (fieldChanged)="onSearchLayerFormChanged($event)">
+    </core-form>
+  </div>
+
+  <!-- Search Management -->
+  <div>
+    <div class="card mt-2" *ngFor="let s of searchArray; let idx = index">
+      <!-- Search Header -->
+      <div class="card-header search-header">
+        <div class="container-fluid no-padding">
+          <div class="row no-gutters">
+            <div class="col-11">
+              <div (click)="s.collapsed = !s.collapsed">
+                  <img src="assets/common/arrow-right.png" class="arrow-img"
+                      *ngIf="s.collapsed">
+                  <img src="assets/common/arrow-down.png" class="arrow-img"
+                      *ngIf="!s.collapsed">
+                  <span class="search-header-title">
+                    {{'WORD.SEARCH' | translate}} {{s.layer.label}}
+                  </span>
+              </div>
+            </div>
+            <div class="col-1">
+              <button type="button" ngbTooltip="{{'WORD.DELETE' | translate}}"
+                class="btn btn-close-search"  container="body"
+                (click)="deleteSearch(idx)">
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Body -->
+      <div class="card-body search-body"
+          [ngStyle]="baseLayerBodyStyle"
+          [ngbCollapse]="s.collapsed">
+
+        <!-- Search condition management -->
+        <div>
+          <webgis-search-condition [layer]="s.layer" [config]="s.config">
+          </webgis-search-condition>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

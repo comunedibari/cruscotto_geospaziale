@@ -1,0 +1,46 @@
+<table style="width:100%;">
+  <tbody>
+    <tr style="border-bottom:3px solid transparent;">
+
+      <!-- Add button -->
+      <td style="width:31px;" *ngIf="config['buttons'] && config['buttons']['add']">
+        <button class="btn btn-secondary control-button plus"
+          [disabled]="config['buttons']['add']['disabled']"
+          (click)="btnClick(config['buttons']['add'],'add')">
+        </button>
+      </td>
+
+      <!-- Delete button -->
+      <td style="width:31px;"
+        *ngIf="config['buttons'] && config['buttons']['del'] && buttonTable()">
+        <button class="btn btn-secondary control-button minus"
+          [disabled]="config['buttons']['del']['disabled']"
+          (click)="btnClick(config['buttons']['del'],'del')">
+        </button>
+      </td>
+
+      <!-- Update button -->
+      <td style="width:31px;"
+        *ngIf="config['buttons'] && config['buttons']['upd'] && buttonTable()">
+        <button class="btn btn-secondary control-button pencil"
+          [disabled]="config['buttons']['upd']['disabled']"
+          (click)="btnClick(config['buttons']['upd'],'upd')">
+        </button>
+      </td>
+
+      <!-- Search simple -->
+      <td style="width:auto">
+
+        <div *ngIf="config['search']" class="input-group"
+          style="width:100%">
+
+          <core-search [config]="configSearch" style="width: -webkit-fill-available"
+            (clearSimpleSearch)="onClearSimpleSearch($event)" (keydownSimpleSearch)="onKeydownSimpleSearch($event)"
+            (filterAdvancedSearch)="onFilterAdvancedSearch($event)">
+          </core-search>
+        </div>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,57 @@
+<!-- General data from -->
+<core-form [config]="genFormCfg" [entity]="entity">
+</core-form>
+
+<!-- Tabs -->
+<div *ngFor="let t of tabs">
+
+  <!-- Tab header -->
+  <div class="tab-header" (click)="t.closed = !t.closed">
+    <img src="assets/common/arrow-right.png" class="arrow-img" *ngIf="t.closed">
+    <img src="assets/common/arrow-down.png" class="arrow-img" *ngIf="!t.closed">
+    <b>{{t.title}}</b>
+  </div>
+
+  <!-- Tab content -->
+  <div [ngbCollapse]="t.closed">
+
+    <!-- Form -->
+    <core-form *ngIf="t.formCfg" [config]="t.formCfg" [entity]="entity"
+      (fieldChanged)="onFormChange($event)">
+    </core-form>
+
+    <!-- Table -->
+    <div class="table-ct" *ngIf="t.tableCfg">
+      <core-table [config]="t.tableCfg"></core-table>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Message -->
+<div class="message text-white rounded"
+     [ngClass]="saveOk ? 'bg-success' : 'bg-danger'"
+     *ngIf="message">
+  <span>{{message | translate}}</span>
+
+  <button class="close message-btn text-white" type="button" (click)="message = null">
+    <span>&times;</span>
+  </button>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar text-right">
+  <button type="button" class="btn btn-secondary btn-hilight ml-1"
+    ngbTooltip="Evidenzia entità associate" (click)="hilightAssociate()">
+  </button>
+
+  <button type="button" class="btn btn-secondary btn-zoom ml-1"
+    ngbTooltip="Zoom" (click)="zoomTo()">
+  </button>
+
+  <button type="button" class="btn btn-sm btn-primary ml-1"
+    *ngIf="!readOnly" (click)="save()">
+    Salva
+  </button>
+</div>

@@ -1,0 +1,274 @@
+
+<!-- Container for sidebar and page content -->
+<ng-sidebar-container>
+
+  <!-- sidebar for webgis tools -->
+  <ng-sidebar [(opened)]="toolsContainerOpened" mode="over" position="right">
+    <!-- tool label -->
+    <h6 id="mapToolbarTitle" class="toolTitle text-center">
+      {{toolActive['tip'] | translate}}
+    </h6>
+    <div id="mapToolbar" (window:resize)="onResize($event)" #mapToolbarRef>
+
+      <ng-template #mapToolContainer>
+      </ng-template>
+
+    </div>
+  </ng-sidebar>
+
+  <!-- page content -->
+  <div ng-sidebar-content id="mapDivContainer">
+
+    <!-- map div -->
+    <div id="mapDiv" #mapDivRef></div>
+
+    <!-- edit toolbar -->
+    <webgis-edit (editEvent)="onEdit($event)"></webgis-edit>
+
+    <!-- tooltip div -->
+    <div class="container-fluid featureHover" #mapFtrTooltipRef>
+      <div *ngIf="featureHoverContent">
+        <div *ngFor="let item of featureHoverContent['data']['fields']">
+          <!-- manage type TEXT, LINK and IMAGE; TEXT is also default case -->
+          <div [ngSwitch]="item['type']">
+            <div *ngSwitchCase="'LINK'" class="row no-gutters">
+              <div class="col-6 popupLabel">
+                <a href="{{item['val']}}" target="_blank">{{item['key']}}</a>
+              </div>
+            </div>
+            <div *ngSwitchCase="'IMAGE'" class="row no-gutters rowImage">
+              <div class="col-12 text-center" style="padding: 0px;">
+                <a href="{{item['val']}}" target="_blank">
+                  <img src="{{item['val']}}" class="popupImage"/>
+                </a>
+                <span class="popupLabel">{{item['key']}}</span>
+              </div>
+            </div>
+            <div *ngSwitchDefault class="row no-gutters">
+              <div class="col-6 popupLabel">{{item['key']}}:</div>
+              <div class="col-6 popupValue">{{item['val']}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- single feature click popup div -->
+    <div id="ftrMapPopup" #mapFtrPopupRef
+         [ngbPopover]="featurePopContent" [popoverTitle]="featurePopTitle"
+         [autoClose]="'inside'" triggers="manual" #ftrPop="ngbPopover">
+    </div>
+
+    <!-- single feature popup content and title -->
+    <ng-template #featurePopContent>
+      <div class="container-fluid featurePopup">
+        <div *ngFor="let item of featurePopupContent['data']['fields']">
+          <!-- manage type TEXT, LINK and IMAGE; TEXT is also default case -->
+          <div [ngSwitch]="item['type']">
+            <div *ngSwitchCase="'LINK'" class="row">
+              <div class="col-6 popupLabel">
+                <a href="{{item['val']}}" target="_blank">{{item['key']}}</a>
+              </div>
+            </div>
+            <div *ngSwitchCase="'IMAGE'" class="row rowImage">
+              <div class="col-12 text-center" style="padding: 0px;">
+                <a href="{{item['val']}}" target="_blank">
+                  <img src="{{item['val']}}" class="popupImage"/>
+                </a>
+                <span class="popupLabel">{{item['key']}}</span>
+              </div>
+            </div>
+            <div *ngSwitchDefault class="row">
+              <div class="col-6 popupLabel">{{item['key']}}:</div>
+              <div class="col-6 popupValue">{{item['val']}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #featurePopTitle>
+      {{featurePopupTitle}}
+      <a href="#" (click)="closeFeaturePopup()" class="map-popup-closer">
+        <img src="assets/webgis/close.png" width="10" height="10">
+      </a>
+    </ng-template>
+
+    <!-- summary features click popup div -->
+    <div id="sumMapPopup" #mapSumPopupRef
+         [ngbPopover]="summaryPopContent" [popoverTitle]="summaryPopTitle"
+         [autoClose]="'inside'" triggers="manual" #sumPop="ngbPopover">
+    </div>
+
+    <!-- summary features popup content and title -->
+    <ng-template #summaryPopContent>
+      <div class="container-fluid summaryPopup">
+
+        <div *ngIf="summaryPopupSelectedLayer==null">
+          <div class="row summaryRow"
+               *ngFor="let item of summaryPopupContent | keyvalue">
+            <div class="col-9">{{item.key}}</div>
+            <div class="col-3">
+              <a href="#" (click)="showSummaryDetails(item.key)" class="no-decoration">
+                {{item.value.length}}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="summaryPopupSelectedLayer!=null">
+          <div class="row selectedLayerTitle">
+            <div class="col-3">
+              <a href="#" (click)="showSummaryDetails(null)" class="map-popup-go-summary">
+                <img src="assets/common/arrow-left.png">
+              </a>
+            </div>
+            <div class="col-9 text-center">{{summaryPopupSelectedLayer}}</div>
+          </div>
+          <ul>
+            <li *ngFor="let item of summaryPopupContent[summaryPopupSelectedLayer]">
+              <div class="row selectedLayerRow">
+                <div class="col-9">
+                  <a href="#" (click)="showFeatureInfo(item)" class="no-decoration">
+                    {{item.featureId}}
+                  </a>
+                </div>
+                <div class="col-3"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </ng-template>
+    <ng-template #summaryPopTitle>
+      {{summaryPopupTitle}}
+      <a href="#" (click)="closeSummaryPopup()" class="map-popup-closer">
+        <img src="assets/webgis/close.png" width="10" height="10">
+      </a>
+    </ng-template>
+
+    <!-- features cluster click popup div -->
+    <div id="clusterMapPopup" #mapClusterPopupRef
+         [ngbPopover]="clusterPopContent" [popoverTitle]="clusterPopTitle"
+         [autoClose]="'inside'" triggers="manual" #clusterPop="ngbPopover">
+    </div>
+
+    <!-- features cluster popup content and title -->
+    <ng-template #clusterPopContent>
+      <div class="container-fluid clusterPopup">
+
+        <ul>
+          <li *ngFor="let item of clusterPopupContent">
+            <div class="row selectedLayerRow">
+              <div class="col-9">
+                <a href="#" (click)="showFeatureInfo(item)" class="no-decoration">
+                  {{item.featureId}}
+                </a>
+              </div>
+              <div class="col-3"></div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </ng-template>
+    <ng-template #clusterPopTitle>
+      {{clusterPopupTitle}}
+      <a href="#" (click)="closeClusterPopup()" class="map-popup-closer">
+        <img src="assets/webgis/close.png" width="10" height="10">
+      </a>
+    </ng-template>
+
+
+
+
+
+
+    <!-- lateral gis tools buttons -->
+    <div id="mapBaseCtrl" class="btn-group-vertical" role="group">
+      <button type="button" ngbTooltip="{{'WEBGIS.ZOOM_IN' | translate}}"
+              placement="left" data-container="body"
+              class="btn btn-gis control-button zoomin" 
+              (click)="zoomIn()">
+      </button>
+      <button type="button" ngbTooltip="{{'WEBGIS.ZOOM_OUT' | translate}}"
+              placement="left" data-container="body"
+              class="btn btn-gis control-button zoomout" 
+              (click)="zoomOut()">
+      </button>
+      <button type="button" ngbTooltip="{{'WEBGIS.ZOOM_BOX' | translate}}"
+              placement="left" data-container="body"
+              class="btn btn-gis control-button zoombox" 
+              (click)="zoomBox()" data-toggle="button" >
+      </button>
+      <button type="button" ngbTooltip="{{'WEBGIS.ZOOM_FULL' | translate}}"
+              placement="left" data-container="body"
+              class="btn btn-gis control-button zoomall" 
+              (click)="zoomAll()">
+      </button>
+      <button *ngIf="overviewCfg" type="button"
+              ngbTooltip="{{overviewCfg['tip'] | translate}}"
+              placement="left" data-container="body"
+              class="btn btn-gis control-button {{overviewCfg['class']}}"
+              [ngClass] = "{'btn-gis-active':isOvwOpen}"
+              (click)="overview()">
+      </button>
+    </div>
+
+    <div id="mapAdvCtrl">
+      <!-- cycle on advanced controls (mutually exclusive on sidebar) -->
+      <div class="btn-group-vertical" role="group">
+        <button *ngFor="let item of toolCfg;"
+                placement="left" type="button" ngbTooltip="{{item['tip'] | translate}}"
+                class="btn btn-gis control-button {{item['class']}}" data-container="body"
+                [ngClass] = "{'btn-gis-active': toolSelectedId == item['id']}"
+                (click)="onToolClicked(item['id'])">
+        </button>
+      </div>
+    </div>
+
+    <!-- map overview -->
+    <div id="mapOverview" #overviewDivRef></div>
+
+    <!-- footer -->
+    <div id="mapFooter" class="container-fluid" #mapFooterRef>
+      <div class="row" style="margin-left:0px; margin-right:0px;">
+        <!-- sr selector-->
+        <div class="col-3" *ngIf="initDone" id="mapSR">
+          <div class="btn-group dropup">
+            <button type="button" class="btn btn-sm footer-control-button ">
+              {{currentMapSr.prefix}}
+            </button>
+            <div class="btn-group" ngbDropdown role="group" placement="top-left">
+              <button class="btn btn-sm footer-control-button dropdown-toggle-split"
+                      ngbDropdownToggle>
+              </button>
+              <div class="dropdown-menu" ngbDropdownMenu>
+                <button *ngFor="let item of wgMap.sr" class="dropdown-item"
+                        ngClass="{{item.prefix == currentMapSr.prefix && 'active' || ''}}"
+                        (click)="setMapSR(item.id)">
+                  {{item.prefix}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- mouse position coords -->
+        <div id="mapCoords" class="col-xl-2 col-3" #mapCoordsRef>
+        </div>
+        <!-- scale line -->
+        <div id="mapScaleLine" class="col-2" #mapScaleLineRef>
+        </div>
+        <!-- scale value -->
+        <div id="mapScale" class="col-2">
+          {{"WORD.SCALE" | translate}} 1: {{currScale}}
+        </div>
+        <!-- map watermark -->
+        <div id="mapWatermark" class="col-xl-3 col-2 text-right" *ngIf="initDone">
+          {{wgMap.watermark | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-sidebar-container>

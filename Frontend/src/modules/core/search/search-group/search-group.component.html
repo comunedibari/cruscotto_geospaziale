@@ -1,0 +1,32 @@
+<div class="row no-gutters">
+  <div class="btn-group btn-group-toggle col-3" ngbRadioGroup
+    [(ngModel)]="group.opLogic">
+
+    <label ngbButtonLabel class="btn btn-sm btn-outline-secondary">
+      <input ngbButton type="radio" [value]="'AND'"> AND
+    </label>
+    <label ngbButtonLabel class="btn btn-sm btn-outline-secondary">
+      <input ngbButton type="radio" [value]="'OR'"> OR
+    </label>
+  </div>
+
+  <div class="col-9">
+    <button type="button" ngbTooltip="{{'CORE_TLP.SEARCH_ADD_GROUP' | translate}}"
+      class="btn btn-sm btn-secondary plus" container="body"
+      (click)="addGroup()">
+    </button>
+
+    <button type="button" ngbTooltip="{{'CORE_TLP.SEARCH_DEL_GROUP' | translate}}"
+      class="btn btn-sm btn-secondary minus" container="body"
+      (click)="delGroup()">
+    </button>
+  </div>
+</div>
+
+<div class="mt-2"
+  *ngFor="let c of group.conditions; let idxCond = index">
+
+  <core-search-condition [config]="config" [condition]="c" [idx]="idxCond"
+    [condLength]="group.conditions.length" (manageCondition)="onManageCondition($event)">
+  </core-search-condition>
+</div>

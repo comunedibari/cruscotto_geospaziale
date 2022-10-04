@@ -1,0 +1,50 @@
+<!-- Panel -->
+<div class="card mt-1" *ngIf="visible">
+
+  <!-- Header -->
+  <div class="card-header">
+    <span class="pan-title" (click)="collapsed = !collapsed">
+     Ridenominazione Arco Stradale
+    </span>
+
+    <button class="close" type="button" (click)="close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body" [ngbCollapse]="collapsed">
+
+    <!-- Form -->
+    <core-form [config]="formCfg" [entity]="renameObj"
+      (fieldChanged)="onFormChange($event)">
+    </core-form>
+
+    <!-- Message -->
+    <div class="message text-white rounded"
+         [ngClass]="renameOk ? 'bg-success' : 'bg-danger'"
+         *ngIf="message">
+      <span>{{message | translate}}</span>
+
+      <button class="close message-btn text-white" type="button" (click)="message = null">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar text-right">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="reset()">
+          Annulla
+        </button>
+        <button type="button" class="btn btn-sm btn-primary ml-1" (click)="save()"
+                [disabled]="renameOk">
+          Salva
+        </button>
+    </div>
+
+  </div>
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)"></core-alert>
+
+</div>

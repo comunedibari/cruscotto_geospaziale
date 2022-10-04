@@ -1,0 +1,199 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- Main toolbar -->
+<div class="main-tlb">
+  <button type="button" class="btn btn-sm btn-secondary" (click)="addCat()">
+    {{'WORD.NEW' | translate}}
+  </button>
+</div>
+
+<!-- Main content -->
+<div class="row main-cnt">
+
+  <!-- List -->
+  <div class="col-4 col-list">
+    <div *ngFor="let c of catList; let idx = index">
+
+      <!-- Category -->
+      <div class="row no-gutters cat-header">
+
+        <div class="col-8" (click)="c.collapsed = !c.collapsed">
+          <img class="arrow-img" src="assets/common/arrow-right.png"
+            *ngIf="c.collapsed">
+          <img class="arrow-img" src="assets/common/arrow-down.png"
+            *ngIf="!c.collapsed">
+          <b>{{c.label}}</b>
+        </div>
+
+        <div class="col-4 text-right">
+          <img src="assets/common/add.png" (click)="addLayer(c)">
+          <img src="assets/common/upd.png" class="ml-1" (click)="updCat(c)">
+          <img src="assets/common/trash.png" class="ml-1" (click)="delCat(c,idx)">
+        </div>
+      </div>
+
+      <!-- Layer tree -->
+      <div [ngbCollapse]="c.collapsed">
+        <p-tree styleClass="cfg-lay-tree" [value]="c.layers"
+          draggableNodes="true"
+          droppableNodes="true"
+          (onNodeDrop)="onNodeDrop($event)">
+
+          <!-- Node template -->
+          <ng-template let-node  pTemplate="default">
+            <div class="pointer">
+
+              <!-- Popover template -->
+              <ng-template #nodePop>
+                <div class="lay-pop-item" (click)="addLayer(c,node)"
+                  *ngIf="node.canAddChild()">{{'WORD.ADD' | translate}}
+                </div>
+                <div class="lay-pop-item" (click)="updLayer(node)">
+                  {{'WORD.UPDATE' | translate}}
+                </div>
+                <div class="lay-pop-item" (click)="delLayer(node)">
+                  {{'WORD.DELETE' | translate}}
+                </div>
+              </ng-template>
+
+              <!-- Node content -->
+              <div [ngbPopover]="nodePop" placement="right" container="body"
+                popoverClass="font-project">{{node.label}}
+              </div>
+
+            </div>
+          </ng-template>
+
+        </p-tree>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Detail -->
+  <div class="col-8">
+
+    <!-- Category form -->
+    <core-form [config]="catForm" [entity]="catSel" [hidden]="!catSel">
+    </core-form>
+
+    <!-- New layer form -->
+    <core-form [config]="layMainForm" [entity]="laySel"
+      (fieldChanged)="onLayMainFormChange($event)"
+      *ngIf="layMainForm && laySel && !laySel.id">
+    </core-form>
+
+    <!-- Layer tabset -->
+    <ngb-tabset justify="justified" [destroyOnHide]="false"
+      *ngIf="layMainForm && laySel && laySel.id">
+
+      <!-- Config -->
+      <ngb-tab id="0" title="{{'WORD.CONFIG'|translate}}">
+        <ng-template ngbTabContent>
+          <div class="det-tab">
+            <core-form [config]="layMainForm" [entity]="laySel"></core-form>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <!-- Data -->
+      <ngb-tab id="1" title="{{'WORD.DATA'|translate}}"
+        *ngIf="showLayTab(1,laySel)">
+
+        <ng-template ngbTabContent>
+          <div class="det-tab">
+
+            <!-- Form -->
+            <core-form [config]="layDataForm" [entity]="laySel"></core-form>
+
+            <!-- Table -->
+            <p-table tableStyleClass="font-project" scrollHeight="220px"
+              [hidden]="layDataRows.length == 0 || !layDataRows[0].key"
+              [scrollable]="true" [columns]="layDataCols" [value]="layDataRows">
+
+              <!-- Colgroup required by scrollable to support col width -->
+              <ng-template pTemplate="colgroup" let-cols>
+                <colgroup>
+                  <col *ngFor="let col of cols" [style.width]="col.width">
+                </colgroup>
+              </ng-template>
+
+              <!-- Table header -->
+              <ng-template pTemplate="header" let-cols>
+                <tr>
+                  <th class="det-data-th" *ngFor="let col of cols">
+                    {{col.label | translate}}
+                  </th>
+                </tr>
+              </ng-template>
+
+              <!-- Table Body -->
+              <ng-template pTemplate="body" let-row
+                let-cols="columns" let-index="rowIndex">
+                <tr [pReorderableRow]="index">
+                  <td class="det-data-td" *ngFor="let col of cols"
+                    [ngClass]="{'text-center': col.type == 3}">
+
+                    <!-- Label -->
+                    <div *ngIf="col.type == 1" class="det-cell-lbl"
+                      pReorderableRowHandle>{{row[col.id]}}</div>
+
+                    <!-- Text -->
+                    <input *ngIf="col.type == 2" [(ngModel)]="row[col.id]"
+                      type="text" class="det-cell-inp">
+
+                    <!-- Check -->
+                    <input *ngIf="col.type == 3" [(ngModel)]="row[col.id]"
+                      type="checkbox">
+
+                    <!-- Select -->
+                    <select *ngIf="col.type == 4" [(ngModel)]="row[col.id]"
+                      class="det-cell-inp">
+                      <option *ngFor="let tp of layDataType" [value]="tp.id">
+                        {{tp.name}}
+                      </option>
+                    </select>
+
+                  </td>
+                </tr>
+              </ng-template>
+
+            </p-table>
+
+          </div>
+        </ng-template>
+
+      </ngb-tab>
+
+      <!-- Style -->
+      <ngb-tab id="2" title="{{'WORD.STYLE'|translate}}"
+        *ngIf="showLayTab(2,laySel)">
+
+        <ng-template ngbTabContent>
+          <div class="det-tab">
+            <webgis-config-style [layer]="laySel" [style]="laySel.style"
+              (showMessage)="onStyleMessage($event)">
+            </webgis-config-style>
+          </div>
+        </ng-template>
+
+      </ngb-tab>
+
+    </ngb-tabset>
+
+    <!-- Toolbar -->
+    <div class="det-tlb" [hidden]="!catSel && !laySel">
+      <button type="button" class="btn btn-sm btn-secondary"
+        (click)="save()">{{'WORD.SAVE' | translate}}
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary ml-1"
+        (click)="reset()">{{'WORD.CLOSE' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</div>

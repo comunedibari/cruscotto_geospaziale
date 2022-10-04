@@ -1,0 +1,249 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<div>
+  <!-- Toolbar  -->
+  <div *ngIf="configToolbar">
+    <core-toolbar [config]="configToolbar" (buttonClick)="onButtonClick($event)"
+      (search)="onSearch($event)">
+    </core-toolbar>
+  </div>
+
+  <!--Table -->
+  <p-table id="{{id}}" [value]="data" tableStyleClass="font-project" [scrollable]="true"
+    scrollHeight="{{scrollHeight}}" selectionMode="{{selectionMode}}"
+    [(selection)]="selItem" (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)" [resizableColumns]="resizeCol"
+    [customSort]="true" [lazy]="true" (onSort)="tableSort($event)"
+    [sortOrder]="sortOrder" sortField="{{sortField}}">
+
+    <!-- Set columns  -->
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col *ngFor="let col of config['columns']" [style.width]="col.width">
+      </colgroup>
+    </ng-template>
+
+    <!-- Header table -->
+    <ng-template pTemplate="header">
+      <tr>
+
+        <th *ngFor="let col of config['columns']" pResizableColumn
+          [pSortableColumnDisabled]="!col.sortable"
+          [pSortableColumn]="col.key"
+          style="background-color: var(--table-header-bg);
+            border-color: var(--table-header-border);
+            color: var(--table-color);">
+          {{col.label | translate}}
+          <p-sortIcon *ngIf="col.sortable" [field]="col.key"></p-sortIcon>
+        </th>
+
+        <!-- New column (empty header) to show save/cancel buttons -->
+        <th [hidden]="!editTable"
+          style="background-color: var(--table-header-bg);
+            border-color: var(--table-header-border);
+            color: var(--table-color);  width:15%">
+        </th>
+      </tr>
+    </ng-template>
+
+    <!-- Empty body table  -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="config['columns'].length" class="text-center">
+          {{'MESSAGE.NO_DATA' | translate}}
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- Body table  -->
+    <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+      <tr [pSelectableRow]="row" [pSelectableRowIndex]="rowIndex" class="edit-cell">
+        <td *ngFor="let col of config['columns']; let idx = index">
+
+          <!-- Column  editable -->
+          <div *ngIf="col.editable">
+            <div *ngIf="rowSel != rowIndex">
+              {{colRend(row[col.key],col)}}
+            </div>
+            <div *ngIf="rowSel == rowIndex">
+              <div  [ngSwitch]="col.type" class="overflow-editable">
+
+                <!-- Type: Text  -->
+                <input type="text" [(ngModel)]="row[col.key]" *ngSwitchDefault
+                  style="font-size: 12px; width:100%">
+
+                <!-- Type: Object  -->
+                <ng-select *ngSwitchCase="'object'"
+                  class="customTable" [(ngModel)]="row[col.key]"
+                  appendTo="body" [items]="col.source" [searchable] = "false"
+                  [clearable] = "false" [multiple]="col.multiple || false"
+                  [closeOnSelect]="!col.multiple" [hideSelected]="true"
+                  bindLabel="{{col.optionLabel || 'name'}}"
+                  bindValue="{{col.optionValue || 'id'}}">
+                </ng-select>
+
+                <!-- Type: Datetime -->
+                <p-inputMask mask="99/99/9999 99:99" *ngSwitchCase="'datetime'"
+                  [(ngModel)]="row[col.key]" autoClear=false
+                  [style]="{'font-size': '12px', 'width':'100%', 'height':'24px'}"
+                  slotChar="gg/mm/aaaa hh:mm"
+                  (onBlur)="onBlur($event.target.value,rowIndex)">
+                </p-inputMask>
+
+                <!-- Type: Date -->
+                <p-inputMask mask="99/99/9999" *ngSwitchCase="'date'"
+                  [(ngModel)]="row[col.key]" autoClear=false
+                  [style]="{'font-size': '12px', 'width':'100%', 'height':'24px'}"
+                  slotChar="gg/mm/aaaa"
+                  (onBlur)="onBlur($event.target.value,rowIndex)">
+                </p-inputMask>
+
+                <!-- Type: Time  -->
+                <p-inputMask mask="99:99" *ngSwitchCase="'time'"
+                  [(ngModel)]="row[col.key]" autoClear=false
+                  [style]="{'font-size': '12px', 'width':'100%', 'height':'24px'}"
+                  slotChar="hh:mm"
+                  (onBlur)="onBlur($event.target.value,rowIndex)">
+                </p-inputMask>
+
+                <div style="color:red" *ngIf="invalidDate[rowIndex] &&
+                  (col.type == 'datetime' || col.type == 'date' ||
+                    col.type == 'time')">
+                  {{'MESSAGE.INVALID_DATE' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column not editable -->
+          <div class="not-edit-cell" *ngIf="!col.editable">{{colRend(row[col.key],col)}}</div>
+        </td>
+
+        <!-- New column to show save/cancel buttons -->
+        <td [hidden]="!editTable" style="width:15%; text-align:center">
+
+          <div *ngIf="rowSel != rowIndex">
+
+            <!--   Edit row button -->
+            <button *ngIf="displayButton('U')"
+              class="btn-xs control-button-xs pencil-table"
+              style="display:inline; background-color: transparent; border: 0;
+                cursor: pointer;" (click)="edit(row, rowIndex)">
+            </button>
+
+            <!--   Remove button -->
+            <button *ngIf="displayButton('D')"
+              class="btn-xs control-button-xs trash"
+              style="display:inline; margin-right:5px;  background-color: transparent;
+                border: 0; cursor: pointer;" (click)="remove(row, rowIndex)">
+            </button>
+          </div>
+
+           <div *ngIf="rowSel == rowIndex">
+
+            <!--   Save button -->
+              <button class="btn-xs control-button-xs save"
+                style="display:inline; background-color: transparent; border: 0;
+                  cursor: pointer;" (click)="save(row, 'U')">
+              </button>
+
+              <!-- Close button -->
+              <button class="btn-xs control-button-xs remove"
+                style="display:inline; margin-right:5px;  background-color: transparent;
+                  border: 0; cursor: pointer;" (click)="close(row, rowIndex)">
+              </button>
+
+           </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <!--  Footer table to insert new Row -->
+    <ng-template pTemplate="footer" let-columns>
+      <tr *ngIf="newRow && editTable">
+        <td *ngFor="let col of config['columns']">
+
+          <!-- Column  editable -->
+          <div *ngIf="col.editable">
+            <div>
+              <div [ngSwitch]="col.type" class="overflow-editable">
+
+                <!-- Type: Text  -->
+                <input type="text" [(ngModel)]="newRow[col.key]" *ngSwitchDefault
+                  style="font-size: 12px; width:100%"
+                  [ngClass]="{'uppercase':col.uppercase}">
+
+                <!-- Type: Object  -->
+                <ng-select *ngSwitchCase="'object'"
+                  class="customTable" [(ngModel)]="newRow[col.key]"
+                  appendTo="body" [items]="col.source" [searchable] = "false"
+                  [clearable] = "false" [multiple]="col.multiple || false"
+                  [closeOnSelect]="!col.multiple" [hideSelected]="true"
+                  bindLabel="{{col.optionLabel || 'name'}}"
+                  bindValue="{{col.optionValue || 'id'}}">
+                </ng-select>
+
+                <!-- Type: Datetime -->
+                <p-inputMask mask="99/99/9999 99:99" *ngSwitchCase="'datetime'"
+                  [(ngModel)]="newRow[col.key]" autoClear=false
+                  style="font-size: 12px; width:100%; height:24px"
+                  slotChar="gg/mm/aaaa hh:mm"
+                  (onBlur)="onBlur($event.target.value)">
+                </p-inputMask>
+
+                <!-- Type: Date -->
+                <p-inputMask mask="99/99/9999" *ngSwitchCase="'date'"
+                  [(ngModel)]="newRow[col.key]" autoClear=false
+                   style="font-size: 12px; width:100%; height:24px"
+                  slotChar="gg/mm/aaaa"
+                  (onBlur)="onBlur($event.target.value)">
+                </p-inputMask>
+
+                <!-- Type: Time  -->
+                <p-inputMask mask="99:99" *ngSwitchCase="'time'"
+                  [(ngModel)]="newRow[col.key]" autoClear=false
+                  style="font-size: 12px; width:100%; height:24px"
+                  slotChar="hh:mm"
+                  (onBlur)="onBlur($event.target.value)">
+                </p-inputMask>
+
+                <div style="color:red" *ngIf="invalidDate[rowIndex] &&
+                  (col.type == 'datetime' || col.type == 'date' ||
+                    col.type == 'time')">
+                  {{'MESSAGE.INVALID_DATE' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column not editable -->
+          <div class="not-edit-cell" *ngIf="!col.editable">{{colRend(newRow[col.key],col)}}</div>
+        </td>
+
+        <!-- New column to show save/cancel buttons -->
+        <td [hidden]="!editTable" style="width:15%; text-align:right">
+          <!--   Save button -->
+          <button class="btn-xs control-button-xs save"
+            style="display:inline; background-color: transparent; border: 0;
+              cursor: pointer;" (click)="save(newRow,'I')">
+          </button>
+
+          <!-- Close button -->
+          <button class="btn-xs control-button-xs remove"
+            style="display:inline; margin-right:5px;  background-color: transparent;
+              border: 0; cursor: pointer;" (click)="close(newRow)">
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Pagination  -->
+  <core-pagination [hidden]="!config['pagination'] || data.length == 0" *ngIf="dataPag"
+    [config]="configPag" (pageLoaded)="onPageLoaded($event)">
+  </core-pagination>
+
+</div>

@@ -1,0 +1,19 @@
+.cat-header {
+  background-color: #f6f6f6;
+  border-radius: 2px;
+  padding: 10px 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.arrow-img {
+  vertical-align: text-top;
+}
+
+/*  Reimplemented p-tree style */
+:host ::ng-deep .legend-p-tree {
+  font-family: sans-serif, Arial, Verdana !important;
+  font-size: 12px !important;
+  width: 100% !important;
+  border: 0px !important;
+}

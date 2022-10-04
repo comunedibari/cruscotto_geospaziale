@@ -1,0 +1,136 @@
+#layers {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.layer-header {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  cursor: pointer;
+}
+
+.layer-header-title {
+  font-weight: 700;
+}
+
+.arrow-img {
+  vertical-align: text-top;
+}
+
+.custom-bl-slider {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.cat-header {
+  background-color: #f6f6f6;
+  border-radius: 2px;
+  padding: 10px 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.layer-body {
+  padding: 0.4rem;
+}
+
+.btn-layer {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  padding:0;
+  font-size: 14px;
+}
+
+
+.btn-controls {
+  width: 16px;
+  height: 16px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/webgis/controls.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.btn-clip {
+  width: 16px;
+  height: 16px;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: url(/assets/webgis/clip.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.error-msg {
+  text-align: center;
+  color: #f62020;
+}
+
+.no-margin {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.no-padding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.padding-body {
+  padding:  12px 0px !important;
+}
+
+/*  Reimplemented p-tree style */
+:host ::ng-deep .ll-p-tree {
+  font-family: sans-serif, Arial, Verdana !important;
+  font-size: 12px !important;
+  width: 100% !important;
+  border: 0px !important;
+}
+
+ /* p-tree item */
+::ng-deep .p-tree-item {
+  background-color: #f6f6f6 !important;
+  border: 1px solid #ddd !important;
+  padding: 0px !important;
+}
+
+::ng-deep .p-tree-item-disabled {
+  pointer-events: none;
+  background-color: #f6f6f6 !important;
+  border: 1px solid #ddd !important;
+  padding: 0px;
+}
+
+/* droppoint */
+::ng-deep .ui-treenode-droppoint{
+  height: 6px !important;
+}
+
+/* treenode checkbox */
+::ng-deep .p-tree-item-disabled .ui-treenode-content .ui-chkbox .ui-chkbox-box {
+  border: 1px solid #a6a6a6;
+  background-color: #ececec;
+  color: #999999;
+  width:15px;
+  height: 15px;
+}
+
+/* treenode icon checkbox */
+::ng-deep .p-tree-item-disabled .ui-treenode-content .ui-chkbox .ui-chkbox-box .ui-chkbox-icon{
+  font-size:13px;
+}
+
+/* treenode label*/
+::ng-deep .p-tree-item .ui-treenode-label {
+  width: calc(100% - 19.28px - 0.143em - 15px - 0.5em) !important;
+}
+
+::ng-deep .p-tree-item-disabled .ui-treenode-label {
+  width: calc(100% - 19.28px - 0.143em - 15px - 0.5em) !important;
+}
+

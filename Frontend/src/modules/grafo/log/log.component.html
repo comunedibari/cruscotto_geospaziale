@@ -1,0 +1,97 @@
+<!-- Modal header -->
+<div class="modal-header">
+  <div class="modal-title">
+    Log operazioni
+  </div>
+
+  <button type="button" class="close" (click)="close()">
+     <span>&times;</span>
+  </button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body body">
+
+  <div style="margin-bottom:3px;">
+    <core-search [config]="configSearch"
+      style="width: -webkit-fill-available;"
+      (clearSimpleSearch)="onClearSimpleSearch()"
+      (keydownSimpleSearch)="onKeydownSimpleSearch($event)"
+      (filterAdvancedSearch)="onFilterAdvancedSearch($event)">
+    </core-search>
+  </div>
+
+  <!-- Table -->
+  <p-table tableStyleClass="font-project" [value]="data" dataKey="id"
+    rowExpandMode="single" [scrollable]="true" scrollHeight="300px"
+    [lazy]="true" [customSort]="true" (onSort)="onTableSort($event)"
+    [sortOrder]="-1" sortField="date">
+
+    <!-- Colgroup (required by scrollable) -->
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:5%">
+        <col *ngFor="let col of cols" [style.width]="col.width">
+      </colgroup>
+    </ng-template>
+
+    <!-- Header -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th *ngFor="let col of cols"
+          [pSortableColumn]="col.id"
+          [pSortableColumnDisabled]="!col.sortable">
+
+          {{col.header}}
+          <p-sortIcon *ngIf="col.sortable" [field]="col.id"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+
+    <!-- Body -->
+    <ng-template pTemplate="body" let-row let-expanded="expanded">
+      <tr>
+        <td><a href="#" [pRowToggler]="row">
+          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+          </i>
+        </a></td>
+
+        <td *ngFor="let col of cols">{{tdRender(col,row[col.id])}}</td>
+      </tr>
+    </ng-template>
+
+    <!-- Row detail -->
+    <ng-template pTemplate="rowexpansion" let-row>
+      <tr>
+        <td [attr.colspan]="cols.length + 1" style="padding:20px">
+
+          <!-- Change table -->
+          <p-table tableStyleClass="font-project" [value]="row.change">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Attributo</th>
+                <th>Valore attuale</th>
+                <th>Valore precedente</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ch>
+              <tr>
+                <td>{{ch.key}}</td>
+                <td>{{changeValRender(ch.key,ch.new)}}</td>
+                <td>{{changeValRender(ch.key,ch.old)}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+  <!-- Pagination  -->
+  <core-pagination [config]="pagCfg" (pageLoaded)="onPageLoaded($event)">
+  </core-pagination>
+
+</div>

@@ -1,0 +1,32 @@
+<!-- Form -->
+<core-form [config]="formCfg" [entity]="entity"></core-form>
+
+<!-- Arcs table -->
+<core-table [config]="arcsTable"></core-table>
+
+<!-- Message -->
+<div class="message text-white rounded"
+     [ngClass]="saveOk ? 'bg-success' : 'bg-danger'"
+     *ngIf="message">
+  <span>{{message | translate}}</span>
+
+  <button class="close message-btn text-white" type="button" (click)="message = null">
+    <span>&times;</span>
+  </button>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar text-right">
+  <button type="button" class="btn btn-secondary btn-hilight ml-1"
+    ngbTooltip="Evidenzia entità associate" (click)="hilightAssociate()">
+  </button>
+
+  <button type="button" class="btn btn-secondary btn-zoom ml-1"
+    ngbTooltip="Zoom" (click)="zoomTo()">
+  </button>
+
+  <button type="button" class="btn btn-sm btn-primary ml-1"
+    *ngIf="!readOnly" (click)="save()">
+    Salva
+  </button>
+</div>

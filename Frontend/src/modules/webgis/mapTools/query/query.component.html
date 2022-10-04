@@ -1,0 +1,74 @@
+<div class="container-fluid"  id="query">
+
+  <!-- Loader -->
+  <div class="spinner-container" *ngIf="showLoader">
+    <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!getFeatureInfoArray && !showLoader">
+    <p>{{"WEBGIS.USE_INFO_TOOL" | translate}}</p>
+  </div>
+
+  <div class="row no-gutters"
+        style="padding-bottom:10px;">
+    <div class="col-10">
+      <div *ngIf="getFeatureInfoArray">
+        {{"WEBGIS.SELECTED_POINT" | translate}}:
+      </div>
+      <div *ngIf="getFeatureInfoArray && getFeatureInfoArray.length">
+        {{customCoordFormat(clickPointCoord)}}
+      </div>
+      <div *ngIf="!showNoLayerMsg && getFeatureInfoArray && getFeatureInfoArray.length > 0"
+            style="padding-top:6px;">
+        {{"MESSAGE.RESULTS_NUMBER" | translate}}: {{numResult}}
+      </div>
+      <div *ngIf="!showNoLayerMsg && getFeatureInfoArray && getFeatureInfoArray.length == 0 && !showLoader"
+            style="padding-top:6px;">
+        {{"MESSAGE.NO_RESULT_FOUND" | translate}}
+      </div>
+      <div *ngIf="showNoLayerMsg"
+            style="padding-top:6px;">
+        {{"WEBGIS.NO_LAYERS_TO_QUERY" | translate}}
+      </div>
+    </div>
+    <div class="col-2">
+      <button (click)="resetInfo()"
+              *ngIf="getFeatureInfoArray && getFeatureInfoArray.length > 0"
+              ngbTooltip="Reset"
+              class="btn bt-secondary reset-info"  container="body">
+      </button>
+    </div>
+  </div>
+
+  <div *ngFor="let obj of getFeatureInfoArray">
+    <!-- Layer name -->
+    <legend class="legend">
+      Layer
+      <span *ngIf="obj.parentName">{{obj.parentName}} - </span>
+      {{obj.layerName}}
+    </legend>
+
+    <!-- Layer attributes -->
+    <div *ngIf="obj.format != 'plain'">
+      <div *ngFor="let item of obj.data | keyvalue"
+            style="margin-bottom:10px">
+        <div *ngFor="let col of item.value | keyvalue">
+          <div class="row no-gutters">
+            <div class="col-5 feature-label">
+              {{col.key}}:
+            </div>
+            <div class="col-7 ">
+              {{col.value}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="obj.format == 'plain'">
+      <div style="margin-bottom:10px">
+        {{obj.data}}
+      </div>
+    </div>
+  </div>
+
+</div>

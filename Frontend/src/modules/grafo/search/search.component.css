@@ -1,0 +1,24 @@
+.mun-div {
+  font-size: 10px;
+}
+
+.col-adv-search {
+  flex: 0 0 64px;
+  -ms-flex: 0 0 64px;
+}
+
+.pan-title {
+  cursor: pointer;
+}
+
+.adv-res-cont {
+  border: 1px solid #ced4da;
+  min-height: 22px;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.adv-res-item {
+  cursor: pointer;
+  padding: 2px;
+}

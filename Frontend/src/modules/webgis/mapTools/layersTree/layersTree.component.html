@@ -1,0 +1,152 @@
+<div class="container-fluid" id="layers">
+
+  <!-- Base layer Management -->
+  <div class="card mt-1">
+
+    <!-- Base layer Header -->
+    <div class="card-header layer-header">
+      <div class="container-fluid no-padding">
+        <div class="row no-gutters">
+          <div class="col-9"
+               (click)="isBaseLayerListCollapsed = !isBaseLayerListCollapsed">
+              <img src="assets/common/arrow-right.png" class="arrow-img"
+                   *ngIf="isBaseLayerListCollapsed">
+              <img src="assets/common/arrow-down.png" class="arrow-img"
+                   *ngIf="!isBaseLayerListCollapsed">
+              <span class="layer-header-title">
+                {{"WEBGIS.BASEMAPS" | translate}}
+              </span>
+          </div>
+          <div class="col-3">
+            <button type="button" ngbTooltip="{{'WORD.SETTINGS' | translate}}"
+              class="btn close btn-controls"  container="body"
+              (click)="baseLayerControlsCollapsed()">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Base layer Body -->
+    <div class="card-body"
+         [ngStyle]="baseLayerBodyStyle"
+         [ngbCollapse]="isBaseLayerListCollapsed">
+
+      <!-- Base layer opacity slider -->
+      <div [ngbCollapse]="isBaseLayerControlsCollapsed" class="pb-2">
+        <div class="col-12">
+          {{currentBaseLayerOpacitySliderValue | number:'1.0-0'}} %
+        </div>
+        <div class="col-12 custom-bl-slider">
+          <p-slider [(ngModel)]="currentBaseLayerOpacitySliderValue"
+          (onChange)='onUserChangeBLOpacity($event)'></p-slider>
+        </div>
+      </div>
+
+      <div *ngFor="let bl of baseLayerArray;" style="margin-bottom:5px;">
+        <input type="radio" name="bl"
+          [checked]="bl.visibility"
+          (change)="onBaseLayerSelect(bl)"/>
+
+        <span class="ml-2">{{bl.label}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layers Management -->
+  <div class="card mt-1">
+    <!-- Layers Header -->
+    <div class="card-header layer-header">
+      <div class="container-fluid no-padding">
+        <div class="row no-gutters">
+          <div class="col-12"
+                (click)="isLayerListCollapsed = !isLayerListCollapsed">
+              <img src="assets/common/arrow-right.png" class="arrow-img"
+                    *ngIf="isLayerListCollapsed">
+              <img src="assets/common/arrow-down.png" class="arrow-img"
+                    *ngIf="!isLayerListCollapsed">
+              <span class="layer-header-title">
+                {{"WEBGIS.LAYERS" | translate}}
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layers Body -->
+    <div class="card-body layer-body"
+         [ngStyle]="layerBodyStyle"
+         [ngbCollapse]="isLayerListCollapsed">
+
+      <!-- Categories -->
+      <div *ngFor="let cat of categoryArray">
+
+        <!-- Category Tab header -->
+        <div class="cat-header" (click)="cat.closed = !cat.closed">
+          <img src="assets/common/arrow-right.png"
+               class="arrow-img" *ngIf="cat.closed">
+          <img src="assets/common/arrow-down.png"
+              class="arrow-img" *ngIf="!cat.closed">
+          <span>
+            {{cat.label}}
+          </span>
+        </div>
+
+        <!-- Category Tab content -->
+        <div [ngbCollapse]="cat.closed">
+          <p-tree #tree [value]="cat.layers"
+            styleClass="ll-p-tree"
+            selectionMode="checkbox" [(selection)]="selectedNode[cat.id]"
+            (onNodeSelect)="onNodeSelect($event)"
+            (onNodeUnselect)="onNodeUnselect($event)"
+            draggableNodes="true" droppableNodes="true"
+            (onNodeDrop)="onNodeDrop($event)">
+            <ng-template let-node pTemplate="default">
+              <webgis-layer [item]="node" (zoom)="zoomItem($event)">
+              </webgis-layer>
+            </ng-template>
+          </p-tree>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- User Layers Management -->
+<!--   <div class="card mt-1"> -->
+    <!-- user Layers Header -->
+<!--    <div class="card-header layer-header">
+      <div class="container-fluid no-padding">
+        <div class="row no-gutters">
+          <div class="col-9"
+               (click)="isUserLayerListCollapsed = !isUserLayerListCollapsed">
+              <img src="assets/common/arrow-right.png" class="arrow-img"
+                    *ngIf="isUserLayerListCollapsed">
+              <img src="assets/common/arrow-down.png" class="arrow-img"
+                    *ngIf="!isUserLayerListCollapsed">
+              <span class="layer-header-title">
+                {{"WEBGIS.USER_LAYERS" | translate}}
+              </span>
+          </div>
+          <div class="col-3">
+            <label for="shapeFile" ngbTooltip="{{'WEBGIS.UPLOAD_SHAPE' | translate}}"
+              class="btn close btn-clip"  container="body"></label>
+            <input type="file" id="shapeFile" accept="application/zip"
+              style="display:none;"
+              (change)="handleFileInput($event.target.files)">
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <!-- User Layers Body -->
+<!--    <div class="card-body layer-body"
+      [ngStyle]="layerBodyStyle"
+      [ngbCollapse]="isUserLayerListCollapsed">
+
+      <div class="error-msg" *ngIf="showError">{{err | translate}}</div>
+    </div>
+  </div>-->
+
+</div>

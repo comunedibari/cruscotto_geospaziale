@@ -1,0 +1,49 @@
+<!-- Panel -->
+<div class="card mt-1" *ngIf="visible">
+
+  <!-- Header -->
+  <div class="card-header">
+    <span class="pan-title"
+      [ngStyle]="titleStyle(curEntity)"
+      (click)="collapsed = !collapsed">
+      {{curEntity.getTitle()}}
+    </span>
+
+    <button class="close" type="button" (click)="close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div [ngStyle]="bodyStyle" class="card-body" [ngbCollapse]="collapsed">
+    <div [ngSwitch]="curEntity.getType()">
+
+      <!-- Via -->
+      <grafo-via *ngSwitchCase="1" [entity]="curEntity"
+        (showMsg)="onShowMsg($event)">
+      </grafo-via>
+
+      <!-- Arco -->
+      <grafo-arco *ngSwitchCase="2" [entity]="curEntity"
+        (showMsg)="onShowMsg($event)">
+      </grafo-arco>
+
+      <!-- Nodo -->
+      <grafo-nodo *ngSwitchCase="5" [entity]="curEntity"
+        (showMsg)="onShowMsg($event)">
+      </grafo-nodo>
+
+      <!-- Civico -->
+      <grafo-civico *ngSwitchCase="3" [entity]="curEntity"
+        (showMsg)="onShowMsg($event)">
+      </grafo-civico>
+
+      <!-- Edificio -->
+      <grafo-edificio *ngSwitchCase="4" [entity]="curEntity"
+        (showMsg)="onShowMsg($event)">
+      </grafo-edificio>
+
+    </div>
+  </div>
+
+</div>

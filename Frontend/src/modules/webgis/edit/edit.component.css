@@ -1,0 +1,97 @@
+.editTools {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--webgis-bg-color);
+  height: var(--gistools-height);
+  width:100%;
+  top: 0px;
+}
+
+.editRow {
+  margin-top: 6px;
+  margin-right: 32px;
+}
+
+.editCommand {
+  z-index: 30;
+}
+
+.editBtn {
+  z-index: 30;
+}
+
+.editCombo {
+  left:8px;
+  width:300px;
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  z-index: 10;
+}
+
+.editBar {
+  left:16px;
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  z-index: 10;
+}
+
+.action-button {
+  display: block;
+  height: 36px;
+  width: 40px;
+  background-color: rgba(246,246,246,0.93);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 2px;
+}
+
+.btn-edit:hover {
+  background-color: rgba(226,226,226,0.93);
+}
+
+.btn-edit-active {
+  background-color: rgba(226,226,226,0.93) !important;
+}
+
+.add {
+  background-image: url(/assets/webgis/add.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.delete {
+  background-image: url(/assets/webgis/delete.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.modify {
+  background-image: url(/assets/webgis/modify.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.undo {
+  background-image: url(/assets/webgis/undo.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.redo {
+  background-image: url(/assets/webgis/redo.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.stopEdit {
+  background-image: url(/assets/webgis/stopEdit.png);
+  background-position: center center;
+  background-repeat:no-repeat;
+}
+
+.stopEdit-hilite {
+  background-color: rgba(247,178,185,1) !important;
+}

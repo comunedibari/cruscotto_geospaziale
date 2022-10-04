@@ -1,0 +1,79 @@
+.control-button {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background-color: var(--webgis-bg-color);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.length {
+  background-image: url(/assets/webgis/length.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.area {
+  background-image: url(/assets/webgis/area.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.coords {
+  background-image: url(/assets/webgis/coords.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.btn-measure:hover {
+  background-color: var(--webgis-hover-color);
+}
+
+.btn-measure-active {
+  background-color: var(--webgis-selected-color);
+}
+
+.sel-btn-measure {
+  margin-top: 12px;
+}
+
+.no-padding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.row-measure {
+  margin-bottom: 15px;
+}
+
+.col-measure {
+  padding-right: 3px;
+  padding-left: 2px;
+}
+
+
+/*
+ * Legend Fields Group
+ */
+.measure-legend  {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-top: 6px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/*
+ * Reimplemented height and min-height ng-select
+ */
+.ng-select.measure {
+  min-height: 31px;
+  height:31px;
+  font-size: 12px;
+}
+.ng-select.measure ::ng-deep .ng-select-container  {
+  min-height: 31px;
+  height:31px;
+  font-size: 12px;
+}

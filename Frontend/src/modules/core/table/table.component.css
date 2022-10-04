@@ -1,0 +1,70 @@
+.overflow-editable {
+  width: 100%;
+  overflow: visible;
+  z-index: 10000;
+}
+
+.edit-cell {
+  min-height:30px;
+  height: 30px;
+}
+
+.not-edit-cell {
+  word-wrap: break-word;
+}
+
+/* Uppercase */
+.uppercase{
+  text-transform: uppercase;
+}
+
+/*
+ * Reimplemented height and min-height ng-select
+ */
+.ng-select.customTable {
+  min-height: 24px;
+  height: 24px;
+  font-size: 12px !important;
+}
+.ng-select.customTable ::ng-deep .ng-select-container  {
+  min-height: 24px;
+  height: 24px;
+  font-size: 12px !important;
+}
+
+/*
+ * Buttons
+ */
+.control-button-xs {
+/*  display: block;*/
+  height: 20px;
+  width: 20px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.save {
+  background-image: url(/assets/common/save.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.remove {
+  background-image: url(/assets/common/remove.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.pencil-table {
+  background-image: url(/assets/common/pencil-table.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.trash {
+  background-image: url(/assets/common/trash.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}

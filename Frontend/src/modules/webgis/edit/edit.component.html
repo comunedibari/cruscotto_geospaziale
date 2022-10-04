@@ -1,0 +1,73 @@
+<div class="editTools container-fluid">
+  
+  <div class="row editRow">
+
+    <div class="col-10 editCommand full-height">
+
+      <!-- combo of editable layers-->
+      <ng-select class="editCombo" style="display: none;"
+                 [items]="editLayerArray"
+                 bindLabel="label"
+                 bindValue="id"
+                 (change)="onChange($event)">
+      </ng-select>
+
+      <!-- add, delete and modify buttons -->
+      <div id="editFunction" class="editBar btn-group btn-group-toggle"
+           [hidden]="editModeHidden"
+           style="display: none;">
+        <button type="button" ngbTooltip="Aggiungi"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button add"
+                [ngClass] = "{'btn-edit-active': selectedMode == 'add'}"
+                (click)="wgEdit('add')">
+        </button>
+
+        <button type="button" ngbTooltip="Rimuovi"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button delete"
+                [ngClass] = "{'btn-edit-active': selectedMode == 'delete'}"
+                (click)="wgEdit('delete')">
+        </button>
+
+        <button type="button" ngbTooltip="Modifica"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button modify"
+                [ngClass] = "{'btn-edit-active': selectedMode == 'modify'}"
+                (click)="wgEdit('modify')">
+        </button>
+      </div>
+
+    </div>
+
+    <div class="col-2 editBtn text-center full-height" [hidden]="editToolsHidden">
+      <!-- edit button tools --> 
+      <div id="geoTools" class="editBar btn-group btn-group-toggle">
+
+        <button type="button" ngbTooltip="Undo"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button undo"
+                [ngClass] = "{'btn-edit-active': selectedTool== 'undo'}"
+                (click)="undo()">
+        </button>
+
+        <button type="button" ngbTooltip="Redo"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button redo"
+                [ngClass] = "{'btn-edit-active': selectedTool == 'redo'}"
+                (click)="redo()">
+        </button>
+
+        <button type="button" ngbTooltip="Fine Editing"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button stopEdit"
+                [ngClass] = "{'stopEdit-hilite': activeModification == true}"
+                (click)="stopEdit()">
+        </button>
+
+      </div>
+    </div>
+
+  </div> <!-- close row -->
+    
+</div>

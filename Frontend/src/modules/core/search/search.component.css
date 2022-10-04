@@ -1,0 +1,66 @@
+/*
+ * Buttons
+ */
+.repeat {
+  background-image: url(/assets/common/repeat.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0 4px 4px 0;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.research {
+  background-image: url(/assets/common/research.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+  height: 28px;
+  width: 28px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-research-active {
+  border-color: #007bff;
+  background-color: #007bff;
+}
+
+/*
+ * Input
+ */
+.input-search{
+  height:28px;
+  border-radius:.25rem 0 0 .25rem;
+  border: 1px solid #ccc;
+/*  border-right:none;*/
+}
+
+.input-search:focus{
+  height:28px;
+  border-radius:.25rem 0 0 .25rem;
+  border: 1px solid #ccc;
+  border-right:none;
+  text-decoration: none;
+  outline:none;
+  box-shadow: none;
+}
+
+/*
+ * Reimplemented popover and popover-body
+ */
+:host ::ng-deep .popover {
+  width: 450px !important;
+  max-width: 450px !important;
+  font-family: sans-serif, Arial, Verdana !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .popover-body {
+  max-height: 250px !important;
+  overflow-y: auto;
+}

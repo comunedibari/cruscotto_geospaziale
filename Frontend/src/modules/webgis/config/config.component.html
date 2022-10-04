@@ -1,0 +1,46 @@
+<!-- Modal header -->
+<div class="modal-header">
+
+  <div class="modal-title">
+    {{"WEBGIS.LAYERS_CONFIG" | translate}}
+  </div>
+
+  <button type="button" class="close" (click)="close()">
+     <span>&times;</span>
+  </button>
+
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)">
+  </core-alert>
+
+  <!-- Tabset -->
+  <ngb-tabset justify="justified">
+
+    <!-- Base layers-->
+    <ngb-tab title="{{'WEBGIS.BASEMAPS'|translate}}">
+      <ng-template ngbTabContent>
+
+        <webgis-config-bslay (showMessage)="onShowMessage($event)">
+        </webgis-config-bslay>
+
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Layers -->
+    <ngb-tab title="{{'WEBGIS.LAYERS'|translate}}">
+      <ng-template ngbTabContent>
+
+        <webgis-config-layer (showMessage)="onShowMessage($event)">
+        </webgis-config-layer>
+
+      </ng-template>
+    </ngb-tab>
+
+  </ngb-tabset>
+
+</div>

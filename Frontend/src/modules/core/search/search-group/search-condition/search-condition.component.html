@@ -1,0 +1,21 @@
+<div class="row no-gutters" style="width:100%">
+  <div class="col-10">
+    <core-form [config]="searchCondFormCfg" [entity]="condition"
+      (fieldChanged)="onSearchCondFormChanged($event)">
+    </core-form>
+  </div>
+
+  <div class="col-1" style="padding-left:2px;">
+    <button type="button" class="btn btn-sm btn-secondary btn-add-cond"
+      ngbTooltip="{{'CORE_TLP.SEARCH_ADD_CONDITION' | translate}}"
+      container="body" (click)="addCondition()"
+      *ngIf="idx == condLength - 1">
+    </button>
+  </div>
+  <div class="col-1" style="padding-left:2px;">
+    <button type="button" class="btn btn-sm btn-secondary btn-rem-cond"
+      ngbTooltip="{{'CORE_TLP.SEARCH_DEL_CONDITION' | translate}}"
+      container="body" (click)="delCondition(condition.id)">
+    </button>
+  </div>
+</div>

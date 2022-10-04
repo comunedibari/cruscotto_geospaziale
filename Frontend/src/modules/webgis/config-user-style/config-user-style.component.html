@@ -1,0 +1,38 @@
+<!-- Modal header -->
+<div class="modal-header">
+
+  <div class="modal-title">
+    {{"WEBGIS.USER_STYLE_CONFIG" | translate}}
+  </div>
+
+  <button type="button" class="close" (click)="close()">
+     <span>&times;</span>
+  </button>
+
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <!-- Loader -->
+  <div class="spinner-container" *ngIf="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)"></core-alert>
+
+  <webgis-config-style [layer]="layer" [style]="style">
+  </webgis-config-style>
+
+  <!-- Toolbar -->
+  <div class="tlb">
+    <button type="button" class="btn btn-sm btn-secondary" *ngIf="op=='U'"
+      (click)="reset()">{{'WEBGIS.RESET_STYLE' | translate}}
+    </button>
+
+    <button type="button" class="btn btn-sm btn-secondary ml-1"
+      (click)="save()">{{'WORD.SAVE' | translate}}
+    </button>
+  </div>
+</div>

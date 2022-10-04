@@ -1,0 +1,48 @@
+.login-header {
+  height: 50px;
+  font-size: 18px;
+  background-color: #e20a16;
+}
+
+.login-header-content {
+  padding-left: 10px;
+}
+
+.login-title {
+  font-size: 24px;
+  margin-top: 50px;
+  font-weight: 600;
+}
+
+.login-form {
+  max-width: 360px;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.login-button {
+  width: 100%;
+  height: 32px;
+}
+
+.login-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 18px;
+  background-color: #ffffff;
+}
+
+.login-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: .25em solid rgba(8, 8, 8, 0.5);
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: spinner-border 1.1s linear infinite;
+  -webkit-animation: spinner-border 1.1s linear infinite;
+  position: relative;
+  top: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}

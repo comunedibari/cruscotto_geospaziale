@@ -1,0 +1,32 @@
+ 
+.custom-scale-line {
+  border-radius: 4px;
+  height: calc(100% - 4px);
+  margin: 2px;
+  padding: 2px;
+}
+
+.custom-scale-line-inner {
+  border:1px solid #eee;
+  border-top:none;
+  color:#eee;
+  font-size:10px;
+  text-align:center;
+  margin:1px;
+}
+
+.custom-drag-zoom {
+  border: 2px solid rgb(228, 34, 23);
+}
+
+.custom-overviewmap:not(.ol-collapsed)  {
+  background-color: var(--webgis-bg-color);
+}
+
+.custom-overviewmap .ol-overviewmap-map {
+  border: none;
+}
+
+.custom-overviewmap .ol-overviewmap-box {
+  border: 2px solid rgb(228, 34, 23);
+}

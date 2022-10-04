@@ -1,0 +1,30 @@
+.main-tlb {
+  margin-top: 4px;
+}
+
+.main-cnt {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.layer-item {
+  margin: 4px 0px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f6f6f6;
+}
+
+.item-btn {
+  cursor: pointer;
+}
+
+.layer-form {
+  padding-left: 0;
+}
+
+.form-tlb {
+  right: 15px;
+  bottom: 4px;
+  position: absolute;
+}

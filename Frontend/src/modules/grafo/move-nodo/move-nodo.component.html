@@ -1,0 +1,31 @@
+
+<div>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Spostamento Nodo
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <p>{{message}}</p>
+    <core-form [config]="formCfg" [entity]="moveObj">
+    </core-form>
+  </div>
+
+  <div class="modal-footer">
+    
+    <div class="buttonRow">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="reset()">
+        Annulla
+      </button>
+      <button *ngIf="!error" type="button" class="btn btn-sm btn-primary ml-1" (click)="save()">
+        Salva
+      </button>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <core-alert [config]="alert" (alertDone)="onAlertDone($event)"></core-alert>
+
+</div>

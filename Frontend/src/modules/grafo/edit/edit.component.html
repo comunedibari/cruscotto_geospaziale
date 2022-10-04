@@ -1,0 +1,259 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{popupTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{popupMsg}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">OK</button>
+  </div>
+</ng-template>
+
+<div class="grafoToolsEdit container-fluid">
+
+  <div class="row editRow">
+
+    <div class="col-10 editBtn full-height">
+
+      <button type="button" ngbTooltip="Mostra/Nascondi barra laterale"
+              placement="bottom" data-container="body"
+              class="btn btn-edit action-button sidebar"
+              (click)="onSidebarBtn()">
+      </button>
+
+      <!-- editable layers buttons -->
+      <div id="grafoItem" class="btn-group btn-group-toggle editBar"
+           ngbRadioGroup name="editRadio" [(ngModel)]="editLayerKey">
+
+        <label class="btn btn-edit layer-button" ngbButtonLabel
+               [ngClass] = "{'btn-edit-active': editLayerKey == 'civico'}">
+          <img src="assets/grafo/civico.png"/>
+          <input type="radio" ngbButton value="civico" (click)="startEdit('civico')">
+          <span class="editBtnLbl">Civici</span>
+        </label>
+
+        <label class="btn btn-edit layer-button" ngbButtonLabel
+               [ngClass] = "{'btn-edit-active': editLayerKey == 'arco'}">
+          <img src="assets/grafo/arco.png"/>
+          <input type="radio" ngbButton value="arco" (click)="startEdit('arco')">
+          <span class="editBtnLbl">Archi</span>
+        </label>
+
+        <label class="btn btn-edit layer-button" ngbButtonLabel
+               [ngClass] = "{'btn-edit-active': editLayerKey == 'nodo'}">
+          <img src="assets/grafo/nodo.png"/>
+          <input type="radio" ngbButton value="nodo" (click)="startEdit('nodo')">
+          <span class="editBtnLbl">Nodi</span>
+        </label>
+
+        <label class="btn btn-edit layer-button" ngbButtonLabel
+               [ngClass] = "{'btn-edit-active': editLayerKey == 'edificio'}">
+          <img src="assets/grafo/edificio.png"/>
+          <input type="radio" ngbButton value="edificio" (click)="startEdit('edificio')">
+          <span class="editBtnLbl">Edifici</span>
+        </label>
+
+      </div>
+
+      <div id="grafoItemTools" class="editBar" [ngSwitch]="editLayerKey">
+
+        <!-- Civico edit tools -->
+        <ng-container *ngSwitchCase="'civico'">
+          <div  id="editCivico" *ngIf="editCivico"
+               class="btn-group btn-group-toggle">
+
+            <button type="button" ngbTooltip="Inserimento Numero Civico"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button newCivico"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'newCivico'}"
+                    (click)="newCivico()">
+            </button>
+
+            <button type="button" ngbTooltip="Rimozione Numero Civico"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button delCivico"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'delCivico'}"
+                    (click)="delCivico()">
+            </button>
+
+            <button type="button" ngbTooltip="Spostamento Numero Civico"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button moveCivico"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'moveCivico'}"
+                    (click)="moveCivico()">
+            </button>
+
+            <button type="button" ngbTooltip="Rinumerazione Numero Civico"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button renCivico"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'renumberCivico'}"
+                    (click)="renumberCivico()">
+            </button>
+
+          </div>
+        </ng-container>
+        <!-- Arco edit tools -->
+        <ng-container *ngSwitchCase="'arco'">
+          <div id="editArco" *ngIf="editArco"
+               class="btn-group btn-group-toggle">
+
+            <button type="button" ngbTooltip="Inserimento Arco Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button newArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'newArco'}"
+                    (click)="newArco()">
+            </button>
+
+            <button type="button" ngbTooltip="Rimozione Arco Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button delArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'delArco'}"
+                    (click)="delArco()">
+            </button>
+
+            <button type="button" ngbTooltip="Spezzamento Arco Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button breakArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'breakArco'}"
+                    (click)="breakArco()">
+            </button>
+
+            <button type="button" ngbTooltip="Unione Archi Stradali"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button mergeArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'mergeArco'}"
+                    (click)="mergeArco()">
+            </button>
+
+            <button type="button" ngbTooltip="Sagomatura Arco Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button shapeArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'shapeArco'}"
+                    (click)="shapeArco()">
+            </button>
+
+            <button type="button" ngbTooltip="Ridenominazione Arco Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button renameArco"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'renameArco'}"
+                    (click)="renameArco()">
+            </button>
+          </div>
+        </ng-container>
+        <!-- Nodo edit tools -->
+        <ng-container *ngSwitchCase="'nodo'">
+          <div id="editNodo" *ngIf="editNodo"
+               class="btn-group btn-group-toggle">
+
+            <button type="button" ngbTooltip="Spostamento Nodo Stradale"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button moveNode"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'moveNodo'}"
+                    (click)="moveNodo()">
+            </button>
+
+          </div>
+        </ng-container>
+        <!-- Edificio edit tools -->
+        <ng-container *ngSwitchCase="'edificio'">
+          <div id="editEdificio" *ngIf="editEdificio"
+               class="btn-group btn-group-toggle">
+
+            <button type="button" ngbTooltip="Inserimento Edificio"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button addEdificio"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'addEdificio'}"
+                    (click)="addEdificio()">
+            </button>
+
+            <button type="button" ngbTooltip="Rimozione Edificio"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button delEdificio"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'delEdificio'}"
+                    (click)="delEdificio()">
+            </button>
+
+            <button type="button" ngbTooltip="Modifica Edificio"
+                    placement="bottom" data-container="body"
+                    class="btn btn-edit action-button modifyEdificio"
+                    [ngClass] = "{'btn-group-active': selectedAction == 'modifyEdificio'}"
+                    (click)="modifyEdificio()">
+            </button>
+
+          </div>
+        </ng-container>
+      </div>
+
+      <div id="edificioSupplementaryTools" class="editBar"
+           class="btn-group btn-group-toggle">
+
+        <button type="button" ngbTooltip="Disegna Edificio"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button drawEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'drawEdificio'}"
+                *ngIf="selectedAction == 'addEdificio'"
+                (click)="drawEdificio()">
+        </button>
+
+        <button type="button" ngbTooltip="Disegna Edificio Regolare"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button regEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'regEdificio'}"
+                *ngIf="selectedAction == 'addEdificio'"
+                (click)="regEdificio()">
+        </button>
+
+        <button type="button" ngbTooltip="Copia Edificio"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button copyEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'copyEdificio'}"
+                *ngIf="selectedAction == 'addEdificio'"
+                (click)="copyEdificio()">
+        </button>
+
+        <!-- this button is shown only on add and modify edificio -->
+        <!-- this button is enabled only after designing or selecting a building -->
+        <button type="button" ngbTooltip="Disegna Cortile in Edificio"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button holeEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'holeEdificio'}"
+                *ngIf="selectedAction == 'addEdificio' || selectedAction == 'modifyEdificio'"
+                [disabled]="!enableEdificioExtraEdit"
+                (click)="holeEdificio()">
+        </button>
+
+        <!-- this button is shown only on add and modify edificio -->
+        <!-- this button is enabled only after designing or selecting a building -->
+        <button type="button" ngbTooltip="Rimuovi Cortile in Edificio"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button removeHoleEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'removeHoleEdificio'}"
+                *ngIf="selectedAction == 'addEdificio' || selectedAction == 'modifyEdificio'"
+                [disabled]="!featureWithHoles"
+                (click)="removeHoleEdificio()">
+        </button>
+
+        <!-- this button is shown only on add and modify edificio -->
+        <!-- this button is enabled only after designing or selecting a building -->
+        <button type="button" ngbTooltip="Trasforma Edificio"
+                placement="bottom" data-container="body"
+                class="btn btn-edit action-button transformEdificio"
+                [ngClass] = "{'btn-group-active': edificioAction == 'transformEdificio'}"
+                *ngIf="selectedAction == 'addEdificio' || selectedAction == 'modifyEdificio'"
+                [disabled]="!enableEdificioExtraEdit"
+                (click)="transformEdificio()">
+        </button>
+      </div>
+
+    </div>
+
+
+    <div class="col-2 suppBtn full-height">
+      <!-- supplementary button tools -->
+    </div>
+  </div> <!-- close row -->
+</div>

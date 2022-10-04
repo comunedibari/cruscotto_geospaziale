@@ -1,0 +1,27 @@
+<div>
+
+  <div class="modal-header alert-{{modalCfg['style']}} footer-header-padding">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{modalCfg.title}}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <p>{{modalCfg.msg}}</p>
+  </div>
+
+  <div class="modal-footer footer-header-padding">
+    
+    <div class="buttonRow"
+         *ngFor="let button of modalCfg.buttons">
+
+      <button type="button"
+              id="{{button.id}}"
+              class="btn btn-sm btn-{{modalCfg['style']}}"
+              (click)="onClick(button)">
+        {{button.label}}
+      </button>
+    <div>
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+.pan-title {
+  cursor: pointer;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.msg-header {
+  padding: 0.5rem 0rem;
+}
+
+/*
+ * Reimplemented card class
+ */
+.card-body {
+  padding: 0.5rem;
+}
+
+.alert-content {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 4px;
+}

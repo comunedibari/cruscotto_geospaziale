@@ -1,0 +1,107 @@
+<!-- Panel -->
+<div class="card mt-1" *ngIf="visible">
+
+  <!-- Header -->
+  <div class="card-header">
+    <span class="pan-title" (click)="collapsed = !collapsed">
+     Spezzamento Arco Stradale
+    </span>
+
+    <button class="close" type="button" (click)="close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div [ngStyle]="bodyStyle" class="card-body" [ngbCollapse]="collapsed">
+    
+    <div *ngIf="action == 'break'">
+      <!-- break message -->
+      <div class="msg-header">{{breakMsg}}</div>
+
+      <!-- confirm message -->
+      <div class="msg-header">{{confirmMsg}}</div>
+    </div>
+
+    <div *ngIf="action == 'result'">
+      <!-- old arco message -->
+      <div class="msg-header row no-gutters ">
+        <div class="col-12">
+          {{oldArcoMsg}}
+        </div>
+      </div>
+
+      <!-- new node message -->
+      <div class="msg-header row no-gutters ">
+        <div class="col-10">
+          {{newNodeMsg}}
+        </div>
+        <div class="col-2">
+          <button  title="Visualizza dettaglio"
+                   class="btn btn-sm btn-secondary"
+                   (click)="viewNodeDetail(idNodo)">
+            <span class="button-font-size">Dettaglio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- new arco message -->
+      <div class="msg-header row no-gutters ">
+        <div class="col-10">
+          {{newArco1Msg}}
+        </div>
+        <div class="col-2">
+          <button  title="Visualizza dettaglio"
+                   class="btn btn-sm btn-secondary"
+                   (click)="viewArcoDetail(codArco1)">
+            <span class="button-font-size">Dettaglio</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="msg-header row no-gutters ">
+        <div class="col-10">
+          {{newArco2Msg}}
+        </div>
+        <div class="col-2">
+          <button  title="Visualizza dettaglio"
+                   class="btn btn-sm btn-secondary"
+                   (click)="viewArcoDetail(codArco2)">
+            <span class="button-font-size">Dettaglio</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Toolbar -->
+    <div class="row no-gutters toolbar" *ngIf="action == 'break'">
+      <div class="col-6 toolbar-msg">
+      </div>
+
+      <div class="col-6 text-right">
+        <button type="button" class="btn btn-sm btn-secondary ml-1" (click)="reset()">
+          Annulla
+        </button>
+        <button type="button" class="btn btn-sm btn-primary ml-1" (click)="breakArco()">
+          Procedi
+        </button>
+      </div>
+    </div>
+
+    <!-- Error management -->
+    <div *ngIf="(error | json) != '{}'">
+      <div class="alert-content alert-danger">{{error.msg}}</div>
+
+      <div class="text-right">
+        <button  (click)="alertDone()"
+          class="btn btn-sm btn-danger">
+          {{error.btOk}}
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

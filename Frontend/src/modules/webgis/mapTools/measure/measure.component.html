@@ -1,0 +1,145 @@
+<div class="container-fluid no-padding">
+
+  <div class="row justify-content-center">
+
+    <!--  Set buttons    -->
+    <button *ngFor="let btn of buttons" type="button"
+      ngbTooltip="{{btn.tooltip | translate}}"
+      class="btn btn-measure control-button {{btn.name}} mr-1"
+      [ngClass] = "{'btn-measure-active': btn.selected}"
+      (click)="selectMeasureTool(btn.name)">
+    </button>
+
+  </div>
+
+  <div [ngSwitch]="btnSelected.name" *ngIf="btnSelected">
+
+    <!-- Coordinates   -->
+    <div *ngSwitchCase="'coords'" [hidden]="!btnSelected.selected"
+      class="sel-btn-measure">
+
+      <core-form [config]="coordsFormCfg" [entity]="coordsObj"
+        (fieldChanged)="onCoordsFormChanged($event)">
+      </core-form>
+    </div>
+
+    <!-- Length   -->
+    <div *ngSwitchCase="'length'" [hidden]="!btnSelected.selected"
+      class="sel-btn-measure">
+
+      <legend class="measure-legend">{{"WORD.DISTANCE"| translate}}</legend>
+
+      <!-- Length -->
+      <div class="row no-gutters row-measure">
+        <div class="col-4 col-measure">{{"WORD.LENGTH"| translate}}</div>
+        <div class="col-3 col-measure">{{objUm['length'].value}}</div>
+        <div class="col-5 col-measure">
+          <ng-select
+            [clearable]="false"
+            [searchable]="false"
+            class="measure"
+            [items]="lengthOptions"
+            [(ngModel)]="objUm['length'].um"
+            bindValue="id"
+            appendTo="body"
+            (change)="changeMeasure(objUm['length'].um,'length')">
+
+            <ng-template ng-label-tmp let-item="item">
+              {{item.label | translate}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+               {{item.label | translate}}
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+
+      <!-- Last segment-->
+      <div class="row no-gutters row-measure">
+        <div class="col-4 col-measure">{{"WEBGIS.LAST_SEGMENT"| translate}}</div>
+        <div class="col-3 col-measure">{{objUm['last_segment'].value}}</div>
+        <div class="col-5 col-measure">
+          <ng-select
+            [clearable]="false"
+            [searchable]="false"
+            class="measure"
+            [items]="lengthOptions"
+            [(ngModel)]="objUm['last_segment'].um"
+            bindValue="id"
+            appendTo="body"
+            (change)="changeMeasure(objUm['last_segment'].um,'last_segment')">
+
+            <ng-template ng-label-tmp let-item="item">
+              {{item.label | translate}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+               {{item.label | translate}}
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Area   -->
+    <div *ngSwitchCase="'area'" [hidden]="!btnSelected.selected"
+      class="sel-btn-measure">
+
+      <legend class="measure-legend">{{"WORD.SURFACES" | translate}}</legend>
+
+      <!-- Surface -->
+      <div class="row no-gutters row-measure">
+        <div class="col-4 col-measure">{{"WORD.SURFACES"| translate}}</div>
+        <div class="col-3 col-measure">{{objUm['area'].value}}</div>
+        <div class="col-5 col-measure">
+          <ng-select
+            [clearable]="false"
+            [searchable]="false"
+            class="measure"
+            [items]="areaOptions"
+            [(ngModel)]="objUm['area'].um"
+            bindValue="id"
+            appendTo="body"
+            (change)="changeMeasure(objUm['area'].um,'area')">
+
+            <ng-template ng-label-tmp let-item="item">
+              {{item.label | translate}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+               {{item.label | translate}}
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+
+      <!-- Perimeter -->
+      <div class="row no-gutters row-measure">
+        <div class="col-4 col-measure">{{"WORD.PERIMETER"| translate}}</div>
+        <div class="col-3 col-measure">{{objUm['perimeter'].value}}</div>
+        <div class="col-5 col-measure">
+          <ng-select
+            [clearable]="false"
+            [searchable]="false"
+            class="measure"
+            [items]="lengthOptions"
+            [(ngModel)]="objUm['perimeter'].um"
+            bindValue="id"
+            appendTo="body"
+            (change)="changeMeasure(objUm['perimeter'].um,'perimeter')">
+
+            <ng-template ng-label-tmp let-item="item">
+              {{item.label | translate}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+               {{item.label | translate}}
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

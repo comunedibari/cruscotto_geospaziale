@@ -1,0 +1,66 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+applicationSuite: Città connessa
+categories:
+  - geographic-information-systems
+description:
+  it:
+    features:
+      - GIS
+    genericName: Cruscotto geospaziale
+    localisedName: Cruscotto geospaziale
+    longDescription: |
+      L'applicazione "Cruscotto GeoSpaziale" offre una serie di funzionalità per
+      la gestione del grafo stradale e di altri tematismi cartografici. Per
+      grafo si intende una struttura topologica composta da archi e nodi. Nel
+      caso particolare di grafo stradale i nodi del grafo rappresentano gli
+      incroci e gli archi i tratti di strada che vanno da incrocio a incrocio
+      (ovvero da nodo a nodo). Sono definiti vertici i cambi di direzione degli
+      archi. Caratteristica del grafo stradale è che tutti gli archi che lo
+      compongono sono denominati, ovvero sono associati al nome della via ovvero
+      ad un toponimo (una via è composta da uno o più archi). La soluzione
+      "Cruscotto GeoSpaziale" è un web GIS fruibile via web che permette la
+      navigazione delle informazioni e dei contenuti attraverso l'interazione
+      diretta con la mappa quale strumento principale di analisi e ricerca sul
+      territorio ed editing delle informazioni relative al grafo stradale
+      (Toponomastica, Civici, Archi, Nodi, etc.).
+    shortDescription: |-
+      Cruscotto geospaziale, applicazione web-based per la gestione del grafo
+
+      stradale e del civilario unico di un ente territoriale.
+developmentStatus: stable
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: false
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+  riuso:
+    codiceIPA: c_a662
+legal:
+  license: AGPL-3.0-or-later
+  mainCopyrightOwner: Comune di Bari
+  repoOwner: Comune di Bari
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  type: none
+name: Cruscotto geospaziale
+platforms:
+  - linux
+  - windows
+releaseDate: '2019-12-31'
+softwareType: standalone/web
+softwareVersion: 1.0.0
+url: 'https://github.com/comunedibari/cruscotto_geospaziale'

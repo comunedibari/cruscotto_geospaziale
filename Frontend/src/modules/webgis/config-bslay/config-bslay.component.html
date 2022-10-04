@@ -1,0 +1,58 @@
+<!-- Loader -->
+<div class="spinner-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- Main toolbar -->
+<div class="main-tlb">
+  <button type="button" class="btn btn-sm btn-secondary"
+    (click)="newLayer()">{{'WORD.NEW' | translate}}
+  </button>
+</div>
+
+<!-- Main content -->
+<div class="row main-cnt">
+
+  <!-- List -->
+  <div class="col-4">
+
+    <div class="layer-item" *ngFor="let lay of layerList; let idx = index"
+      pDraggable="bslay" pDroppable="bslay"
+      (onDragStart)="onDragStart($event,idx)"
+      (onDragEnd)="onDragEnd($event,idx)"
+      (onDrop)="onDrop($event,idx)">
+
+      <input type="radio" name="baseLayer" [value]="lay.id"
+        [(ngModel)]="layerDef" (change)="changeDefault(lay)"/>
+      <b class="ml-2">{{lay.label}}</b>
+
+      <div class="text-right">
+        <img class="item-btn" (click)="updateLayer(lay)"
+          src="assets/common/upd.png">
+        <img class="item-btn ml-1" (click)="deleteLayer(lay,idx)"
+          src="assets/common/trash.png">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Form -->
+  <div class="col-8 layer-form" [hidden]="!layerSel">
+
+    <core-form [config]="layerForm" [entity]="layerSel"
+      (fieldChanged)="onLayerFormChanged($event)">
+    </core-form>
+
+    <div class="form-tlb">
+      <button type="button" class="btn btn-sm btn-secondary"
+        (click)="save()">{{'WORD.SAVE' | translate}}
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary ml-1"
+        (click)="close()">{{'WORD.CLOSE' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</div>

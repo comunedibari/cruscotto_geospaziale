@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row align-items-center nav-row">
+
+    <!-- Logo -->
+    <div class="col-6 navbar-logo">
+      <img src="assets/navbar/logo.png" class="img-fluid">
+    </div>
+
+    <!-- Menu -->
+    <div class="col-3">
+      <nav class="navbar navbar-expand-lg navbar-light">
+
+        <button class="navbar-toggler" type="button" data-target="#navbarMain"
+          (click)="isCollapsed = !isCollapsed">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain" [ngbCollapse]="isCollapsed">
+          <ul class="navbar-nav mx-auto">
+
+            <!-- Menu list -->
+            <li class="nav-item dropdown" ngbDropdown *ngFor="let m of menu">
+              <div class="nav-link dropdown-toggle" style="color:#fff;"
+                ngbDropdownToggle [ngbTooltip]="m.label" placement="bottom">
+                <img class="menu-img" [src]="m.image">
+              </div>
+
+              <!-- Menu item list -->
+              <div class="dropdown-menu" ngbDropdownMenu>
+                <div class="dropdown-item"
+                  *ngFor="let it of m.items"
+                  (click)="onMenuItem(it.action)">
+                  {{it.label}}
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="col-3 text-right">
+      <b class="userInfo" (click)="onUserInfo()">
+        {{userInfo["name"]}} {{userInfo["surname"]}}
+      </b>
+      <img class="logout" src="assets/navbar/logout.png" (click)="onLogout()"
+        ngbTooltip="Esci" placement="bottom">
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,149 @@
+.noresize-textarea {
+  resize: none;
+}
+
+.button-font-size {
+  font-size: 12px;
+}
+
+/* Uppercase */
+.uppercase{
+  text-transform: uppercase;
+}
+
+/*
+ * Customize readonly field
+ */
+.readonly-field{
+  background-color: white;
+}
+
+/*
+ * Reimplemented form-group and label
+ */
+label{
+  margin-bottom: 0px;
+  display: inline-block;
+}
+
+.form-group{
+  margin-bottom: .4rem;
+}
+
+/*
+ * Reimplemented height and min-height ng-select
+ */
+.ng-select.custom {
+  min-height: 28px;
+  height: 28px;
+}
+.ng-select.custom ::ng-deep .ng-select-container  {
+  min-height: 28px;
+  height: 28px;
+}
+
+/*
+ * Reimplemented ng-select-disabled
+ */
+.ng-select.ng-select-disabled ::ng-deep .ng-select-container{
+  background-color: #e9ecef;
+}
+
+/*
+ * Legend Fields Group
+ */
+.fg-legend  {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  padding-top: 6px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/*  Reimplemented p-input mask style */
+
+::ng-deep .ui-inputtext {
+  height: 28px !important;
+  font-family: sans-serif, Arial, Verdana !important;
+  font-size: 12px !important;
+  border: 1px solid #ced4d4 !important;
+}
+
+::ng-deep .ui-widget:disabled {
+  opacity: 1 !important;
+}
+
+/*
+ * Input file
+ */
+.custom-input-file-image {
+  padding-top:0px;
+  padding-bottom:0px;
+  border-top-left-radius: .2rem !important;
+  border-bottom-left-radius: .2rem !important;
+  border-right: 0 !important;
+}
+
+.custom-input-file-text {
+  border-top-left-radius: .2rem !important;
+  border-bottom-left-radius: .2rem !important;
+  border-right: 0 !important;
+}
+
+.disabled-input-file {
+  pointer-events: none;
+  background-color: #e9ecef;
+}
+
+.delete {
+  height: 28px;
+  width: 28px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: .2rem !important;
+  border-top-left-radius: .2rem !important;
+  border-bottom-left-radius: 0;
+  background-image: url(/assets/common/delete.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+.folder {
+  height: 28px;
+  width: 28px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-left-radius: .2rem !important;
+  border-top-left-radius:  .2rem !important;
+  background-image: url(/assets/common/folder.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+/*
+ * Text-list popover
+ */
+.custom-text-list {
+  border-top-left-radius: .2rem !important;
+  border-bottom-left-radius: .2rem !important;
+  border-right: 0 !important;
+}
+
+.lbl-pop{
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.lbl-pop-item {
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.custom-list {
+  height: 28px;
+  width: 28px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-image: url(/assets/common/letter-a.png);
+  background-position : center center;
+  background-repeat:no-repeat;
+}

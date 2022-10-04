@@ -1,0 +1,49 @@
+<div class="row no-gutters">
+
+  <!-- Simple -->
+  <div class="input-group col-10" style="float:left;" *ngIf="config['simple']">
+
+    <input class="form-control input-sm input-search"
+      placeholder="{{'WORD.SEARCH' | translate}}" [disabled]="disable"
+      (keydown.enter)="onSimpleSearch($event)" [ngModel]="text"/>
+
+    <span class="input-group-btn">
+      <button class="btn btn-secondary repeat" (click)="onSimpleClear()"
+        [disabled]="disable"
+        title="{{'CORE_TLP.SEARCH_CLEAR' | translate}}">
+      </button>
+    </span>
+  </div>
+
+  <!-- Advanced -->
+  <div class="col-2" style="padding-left:2px;" *ngIf="config['advanced']">
+
+    <button type="button" class="btn btn-secondary research" [ngbPopover]="popContent"
+      popoverTitle="{{'CORE_TLP.ADVANCED_SEARCH' | translate}}"
+      title="{{'CORE_TLP.ADVANCED_SEARCH' | translate}}"
+      placement="{{config['advanced']['placement'] || 'bottom'}}"
+      [disabled]="disable" [autoClose]="false" #popover="ngbPopover"
+      [ngClass] = "{'btn-research-active': advancedSelected}">
+    </button>
+
+    <ng-template #popContent>
+      <div *ngFor="let g of aGroups; let i = index" style="margin-bottom:5px;">
+        <core-search-group [config]="config" [group]="g"
+          (manageGroup)="onManageGroup($event)">
+        </core-search-group>
+      </div>
+
+       <!-- Buttonbar -->
+      <div class="d-flex justify-content-between" style="width:100%">
+        <button class="btn btn-sm btn-secondary" (click)="onResetAdvancedSearch()">
+          Reset
+        </button>
+        <button class="btn btn-sm btn-secondary" (click)="onAdvancedSearch(); popover.close()">
+          {{"WORD.SEARCH" | translate}}
+        </button>
+      </div>
+    </ng-template>
+
+  </div>
+
+</div>
