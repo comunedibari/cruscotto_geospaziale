@@ -16,7 +16,7 @@ Per grafo si intende una struttura topologica composta da archi e nodi. Nel caso
 
 Si tratta di una applicazione web basata su una architettura conforme alla tipica struttura three-tier che rappresenta un paradigma caratterizzato da rilevanti benefici in termini di scalabilità e di uso efficiente delle risorse. I tre livelli "logici" (front-end, back-end e database) sono realizzati sfruttando i principali framework di riferimento per lo sviluppo quali ad esempio Angular e Bootstrap oltreché di settore come OpenLayers (per lo sviluppo delle funzionalità cartografiche del sistema), Node.JS (per l'implementazione di soluzioni "server-side"), Geoserver (come map server) e RDBMS PostgreSQL/PostGIS (per l'archiviazione dei dati). 
 
-![alt-text](Documentazione tecnica/immagini/immagine1.png "Cruscotto geospaziale")
+![alt-text](https://github.com/comunedibari/cruscotto_geospaziale/blob/main/Documentazione%20tecnica/immagini/Immagine1.png)
 
 Di seguito i sotto-moduli che costituiscono il front-end ed il back-end
 - back-end: contiene i seguenti moduli di backend:
