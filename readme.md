@@ -57,4 +57,4 @@ Il cruscotto geospaziale consente:
 Per i dettagli funzionali si rimanda al manuale utente.
 
 **Installazione di un ambiente locale di sviluppo**
-Per l'instalalzione di un ambiente fare riferimento al manuale di installazione SPCL3-PonMetroBari-CittàConnessa-CruscottoGeoSpatialBigData&IoT-ManualeInstallazione-v.3.0.pdf
+Per i dettagli sull'architettura del software e sulle procedure di installazione fare riferimento al manuale SPCL3-PonMetroBari-CittàConnessa-CruscottoGeoSpatialBigData&IoT-ManualeInstallazione-v.3.0.pdf
