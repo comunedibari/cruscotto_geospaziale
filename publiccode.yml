@@ -8,6 +8,8 @@ categories:
   - geographic-information-systems
 description:
   it:
+    documentation: |-
+      https://raw.githubusercontent.com/comunedibari/cruscotto_geospaziale/master/Documentazione%20tecnica/SPCL3-PonMetroBari-Citt%C3%A0Connessa-CruscottoGeoSpatialBigData%26IoT-ManualeUtente-v.2.0.pdf
     features:
       - GIS
     genericName: Cruscotto geospaziale
