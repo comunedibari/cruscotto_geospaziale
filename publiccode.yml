@@ -16,18 +16,31 @@ description:
     localisedName: Cruscotto geospaziale
     longDescription: |
       L'applicazione "Cruscotto GeoSpaziale" offre una serie di funzionalità per
+
       la gestione del grafo stradale e di altri tematismi cartografici. Per
+
       grafo si intende una struttura topologica composta da archi e nodi. Nel
+
       caso particolare di grafo stradale i nodi del grafo rappresentano gli
+
       incroci e gli archi i tratti di strada che vanno da incrocio a incrocio
+
       (ovvero da nodo a nodo). Sono definiti vertici i cambi di direzione degli
+
       archi. Caratteristica del grafo stradale è che tutti gli archi che lo
+
       compongono sono denominati, ovvero sono associati al nome della via ovvero
+
       ad un toponimo (una via è composta da uno o più archi). La soluzione
+
       "Cruscotto GeoSpaziale" è un web GIS fruibile via web che permette la
+
       navigazione delle informazioni e dei contenuti attraverso l'interazione
+
       diretta con la mappa quale strumento principale di analisi e ricerca sul
+
       territorio ed editing delle informazioni relative al grafo stradale
+
       (Toponomastica, Civici, Archi, Nodi, etc.).
     screenshots:
       - |-
@@ -40,6 +53,7 @@ description:
         https://raw.githubusercontent.com/comunedibari/cruscotto_geospaziale/master/Img/screen4.png
     shortDescription: |-
       Cruscotto geospaziale, applicazione web-based per la gestione del grafo
+
       stradale e del civilario unico di un ente territoriale.
 developmentStatus: stable
 it:
@@ -69,8 +83,9 @@ maintenance:
     - email: rip.innovazionetecnologica@comune.bari.it
       name: |-
         Comune di Bari - Ripartizione Innovazione Tecnologica, Sistemi
+
         Informativi e TLC
-      phone: +0805774702
+      phone: '+390805774702'
   type: internal
 name: Cruscotto geospaziale
 platforms:
@@ -81,3 +96,30 @@ softwareVersion: 1.0.0
 url: 'https://github.com/comunedibari/cruscotto_geospaziale'
 usedBy:
   - Comune di Bari
+dependsOn:
+  open:
+    - name: PostgreSQL
+      optional: false
+      version: ''
+      versionMax: '10'
+      versionMin: '9'
+    - name: PostGIS
+      optional: false
+      version: '2.4'
+      versionMax: ''
+      versionMin: ''
+    - name: Node.js
+      optional: false
+      version: '10.7'
+      versionMax: ''
+      versionMin: ''
+    - name: OpenLayers
+      optional: false
+      version: 5.3.1
+      versionMax: ''
+      versionMin: ''
+    - name: Mapfish (print-servlet)
+      optional: false
+      version: 3.18.4
+      versionMax: ''
+      versionMin: ''
