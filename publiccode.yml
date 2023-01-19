@@ -15,7 +15,7 @@ description:
     genericName: Cruscotto geospaziale
     localisedName: Cruscotto geospaziale
     longDescription: |
-      L'applicazione "Cruscotto GeoSpaziale" offre una serie di funzionalità per
+      L'applicazione Cruscotto GeoSpaziale offre una serie di funzionalità per
 
       la gestione del grafo stradale e di altri tematismi cartografici. Per
 
@@ -33,7 +33,7 @@ description:
 
       ad un toponimo (una via è composta da uno o più archi). La soluzione
 
-      "Cruscotto GeoSpaziale" è un web GIS fruibile via web che permette la
+      Cruscotto GeoSpaziale è un web GIS fruibile via web che permette la
 
       navigazione delle informazioni e dei contenuti attraverso l'interazione
 
