@@ -52,7 +52,7 @@ description:
       - |-
         https://raw.githubusercontent.com/comunedibari/cruscotto_geospaziale/master/Img/screen4.png
     shortDescription: |-
-      Cruscotto geospaziale, applicazione web-based per la gestione del grafo
+      Applicazione web-based per la gestione del grafo
 
       stradale e del civilario unico di un ente territoriale.
 developmentStatus: stable
